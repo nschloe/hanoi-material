@@ -1,0 +1,43 @@
+% common header for all exercise sheets
+\documentclass[
+paper=a4,
+parskip=half,
+oneside
+]{scrartcl}
+
+%% set the document in dutch
+%\usepackage[dutch]{babel}
+
+\usepackage{graphicx}
+% The official corporate design guidelines
+% <http://www.pressestelle.tu-berlin.de/online_styleguide/design/typografie_ikonografie/>
+% advise to set the logo flush right and at 22% of the pagewidth. Be somewhat
+% more conservative with the size here.
+\titlehead{\hfill\includegraphics[width=0.12\paperwidth]{logos/tu-logo-long}}
+
+% use the latin modern font
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% use microtype
+\usepackage{microtype}
+
+\usepackage[
+bookmarks,
+colorlinks
+]{hyperref}
+
+% define MATLAB(R) symbol
+\newcommand\matlab{{MATLAB\textsuperscript{\textregistered}}}
+
+% redefine the enumerate environment in such a way that the pattern looks like
+%
+% (a)
+% (b) (i)
+%     (ii)
+% (c)
+%
+\renewcommand\theenumi   {\alph{enumi}}
+\renewcommand\labelenumi {(\theenumi)}
+\renewcommand\theenumii  {\roman{enumii}}
+\renewcommand\labelenumii{(\theenumii)}
