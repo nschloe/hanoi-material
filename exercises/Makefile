@@ -16,6 +16,9 @@ ex1:
 ex2:
 	@$(LATEX) $(LATEX_OPTIONS) ex2
 
+ex3:
+	@$(LATEX) $(LATEX_OPTIONS) ex3
+
 .PHONY: clean
 
 clean:

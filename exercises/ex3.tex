@@ -1,0 +1,36 @@
+\input{header.tex}
+% -----------------------------------------------------------------------------
+%\title{Exercise 1}
+\subtitle{Numerical Optimization: Newton's method}
+\title{Exercise sheet 3}
+\date{}
+% -----------------------------------------------------------------------------
+\usepackage{amsmath}
+% -----------------------------------------------------------------------------
+\newcommand\tp{\ensuremath{\text{\upshape T}}}
+% =============================================================================
+\begin{document}
+\maketitle
+
+% Ughh.
+\vspace{-12ex}
+
+% Hintermüller, (P3)
+% <http://www.uni-graz.at/imawww/hintermueller/opt_I_10.pdf>
+\paragraph{Programming 3}
+Use the program from Exercise sheet 1. Use the Newton direction as the search
+direction if
+\[
+c_1 \|\nabla f(x_k)\|^2
+\le \nabla f(x_k)(\nabla^2 f(x_k))^{-1} \nabla f(x_k)
+\le c_2 \|\nabla f(x_k)\|^2,
+\]
+and otherwise the direction of steepest descent. Experiment with $0<c_1<c_2$.
+Document the results for the Rosenbrock function $f_1(\cdot)$ and for
+\[
+f_2(x) = \frac{1}{2}x_1^2 + x_1\cos(x_2)
+\]
+and compare them with the method of steepest descent.
+
+\end{document}
+% =============================================================================
