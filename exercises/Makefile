@@ -8,32 +8,30 @@ LATEX_OPTIONS:=-shell-escape
 
 # ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 
-TARGET:=ex1
-
-# ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
-# 
-
 default: ex1
 
 ex1:
-	@$(LATEX) $(LATEX_OPTIONS) $(TARGET)
+	@$(LATEX) $(LATEX_OPTIONS) ex1
+
+ex2:
+	@$(LATEX) $(LATEX_OPTIONS) ex2
 
 .PHONY: clean
 
 clean:
-	@rm -f $(TARGET)-blx.bib \
-	       $(TARGET).aux \
-	       $(TARGET).out \
-	       $(TARGET).auxlock \
-	       $(TARGET).bbl \
-	       $(TARGET).blg \
-	       $(TARGET).log \
-	       $(TARGET).pdf \
-	       $(TARGET)-figure*.pdf \
-	       $(TARGET)-figure*.log \
-	       $(TARGET)-figure*.dpth \
-	       $(TARGET).snm \
-	       $(TARGET).nav
+	@rm -f ex*-blx.bib \
+	       ex*.aux \
+	       ex*.out \
+	       ex*.auxlock \
+	       ex*.bbl \
+	       ex*.blg \
+	       ex*.log \
+	       ex*.pdf \
+	       ex*-figure*.pdf \
+	       ex*-figure*.log \
+	       ex*-figure*.dpth \
+	       ex*.snm \
+	       ex*.nav
 	@rm -f missfont.log \
 	       x.log
 	@rm -f *~
