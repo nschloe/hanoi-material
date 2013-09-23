@@ -1,10 +1,9 @@
 \input{header.tex}
 % -----------------------------------------------------------------------------
 %\title{Exercise 1}
-\subtitle{Numerical Linear Algebra -- ``LU factorization''}
+\subtitle{Numerical Optimization: Basics}
 \title{Exercise sheet 1}
 \date{}
-%\author{A.~Laurain\and N.~Schl\"omer}
 % -----------------------------------------------------------------------------
 \usepackage{amsmath}
 % -----------------------------------------------------------------------------
@@ -16,7 +15,7 @@
 % Ughh.
 \vspace{-12ex}
 
-\paragraph{Exercise 1.1}
+\paragraph{Exercise 1.1} % Nocedal 2.1
 Compute  the gradient $\nabla f(x)$ and Hessian $\nabla^2f(x)$ of the
 \emph{Rosenbrock function}
 \begin{equation}\label{eq:rosenbrock}
@@ -25,27 +24,27 @@ Compute  the gradient $\nabla f(x)$ and Hessian $\nabla^2f(x)$ of the
 Show that $x^*=(1,1)^\tp$ is the only local minimizer of this function, and
 that the Hessian matrix at that point is positive-definite.
 
-\paragraph{Exercise 1.2}
+\paragraph{Exercise 1.2} % Nocedal 2.2
 Show that the function
 \[
-  f(x) = 8x_1 + 12x_2 + x_1^2 - x_2^2
+  f(x) = 8x_1 + 12x_2 + x_1^2 - 2x_2^2
 \]
 has only one stationary point, and that it is neither a maximum nor a minimum,
 but a saddle point. Sketch the contour lines of $f$.
 
-\paragraph{Exercise 1.3}
+\paragraph{Exercise 1.3} % Nocedal 2.7
 Suppose that $f$ is a convex function. Show that the set of global minimizer
 of $f$ is a convex set.
 
-\paragraph{Exercise 1.4}
+\paragraph{Exercise 1.4} % Nocedal 2.8
 Consider the function
 \[
   f(x_1, x_2) = (x_1+x_2^2)^2.
 \]
-At the $x=(1,0)^\tp$ we consider the search direction $p=(-1,1)^\tp$. Show
-that $p$ is a descent direction and find all minimizers of the problem.
+At the point $x=(1,0)^\tp$ we consider the search direction $p=(-1,1)^\tp$.
+Show that $p$ is a descent direction and find all minimizers of the problem.
 
-\paragraph{Programming 1}
+\paragraph{Programming 1}  % Nocedal 3.1
 Program the steepest descent and Newton algorithms using the backtracking line
 search, Procedure 3.1. Use them to minimize the Rosenbrock function
 (\ref{eq:rosenbrock}). Set the initial step length ($\alpha_0=1$ and print the
