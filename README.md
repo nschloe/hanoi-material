@@ -1,2 +1,2 @@
-Class material for Optimization at Hanoi Autumn School 2013
-===========================================================
+Class material for Hanoi Autumn School 2013
+===========================================
