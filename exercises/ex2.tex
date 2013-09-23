@@ -1,0 +1,64 @@
+\input{header.tex}
+% -----------------------------------------------------------------------------
+%\title{Exercise 1}
+\subtitle{Numerical Optimization: Convergence, Conjugate Gradient method}
+\title{Exercise sheet 2}
+\date{}
+% -----------------------------------------------------------------------------
+\usepackage{amsmath}
+% -----------------------------------------------------------------------------
+\newcommand\tp{\ensuremath{\text{\upshape T}}}
+% =============================================================================
+\begin{document}
+\maketitle
+
+% Ughh.
+\vspace{-12ex}
+
+\paragraph{Exercise 2.1} % Nocedal 2.12
+Show that the sequence $x_k=1/k$ is no Q-linearly convergent, although it does converge to $0$. (This is called \emph{sublinear convergence.})
+
+\paragraph{Exercise 2.2} % Nocedal 2.13
+Show that the sequence
+\[
+x_k = 1 + \left(\frac{1}{2}\right)^{2^k}
+\]
+is Q-quadratically convergent to 1.
+
+% Alternatives:
+
+%\paragraph{Exercise 2.2} % Nocedal 2.14
+%Does the sequence $1/k!$ converge Q-superlinearly? Q-quadratically?
+
+%\paragraph{Exercise 2.2} % Nocedal 2.15
+%Consider the sequence $\{x_k\}$ defined by
+%\[
+%x_k =
+%\begin{cases}
+%(1/4)^{2^k},\quad&k\text{ even,}\\
+%x_{k-1}/k,\quad&k\text{ odd.}
+%\end{cases}
+%\]
+%Is the sequence Q-superlinearly convergent? Q-quadratically? R-quadratically?
+
+\paragraph{Exercise 2.3}  % Nocedal 5.2
+Show that if the nonzero vectors $p_0, p_1,\dots, p_k$ satisfy (??), where $A$
+is symmetric and positive-definite, then these vectors are linearly
+independent. (The results implies that $A$ has at most $n$ conjugate
+directions.)
+
+\paragraph{Exercise 2.4}  % Nocedal 5.4
+Show that if $f(\cdot)$ is a strictly convex quadratic function, the function
+$h(\sigma)=f(x_0+\sigma_0 p_0 + \dots \sigma_{k-1}p_{k-1})$ also is a strictly
+convex quadratic function in $\sigma=(\sigma_0,\dots,\sigma_{k-1})^\tp$.
+
+\paragraph{Programming 2} % Nocedal 5.1
+Implement the Conjugate Gradient algorithm and use it to solve linear systems
+with \emph{Hilbert matrices} $H$,
+\[
+H_{i,j} = \frac{1}{i+j+1}.
+\]
+Set the right-hand side to $b=(1,\dots,1)^\tp$ and the initial point to $x_0=(0,\dots,0)^\tp$. Try dimensions $5, 8, 12, 20$, and report the number of iterations required to reduce the residual below $10^{-6}$.
+
+\end{document}
+% =============================================================================
