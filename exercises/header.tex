@@ -40,18 +40,50 @@ oneside
 % ignores those (and doesn't reserve any extra space), cf.
 % <http://tex.stackexchange.com/questions/134851/when-author-date-fields-blank-remove-whitespace-between-header-and-text>.
 \makeatletter
-\renewcommand{\@maketitle}{\null\vskip 2em
-\begin{center}
-  \ifx\@subject\@empty \else
-    {\subject@font \@subject \par}
-    \vskip 1.5em
+\renewcommand{\@maketitle}{%
+  \clearpage
+  \let\footnote\thanks
+  \ifx\@extratitle\@empty \else
+    \noindent\@extratitle \next@tpage \if@twoside \null\next@tpage \fi
   \fi
-  \titlefont\huge \@title\par
-  \vskip .5em
-  {\ifx\@subtitle\@empty\else\usekomafont{subtitle}\@subtitle\par\fi}%
-\end{center}
-\vskip 2em}
+  \setparsizes{\z@}{\z@}{\z@\@plus 1fil}\par@updaterelative
+  \ifx\@titlehead\@empty \else
+    \begin{minipage}[t]{\textwidth}
+      \@titlehead
+    \end{minipage}\par
+  \fi
+  \null
+  \vskip 2em%
+  \begin{center}%
+    \ifx\@subject\@empty \else
+      {\subject@font \@subject \par}
+      \vskip 1.5em
+    \fi
+    {\titlefont\huge \@title \par}%
+    \vskip .5em
+    {\ifx\@subtitle\@empty\else\usekomafont{subtitle}\@subtitle\par\fi}%
+    %\vskip 1em
+    %{\Large
+    %  \lineskip .5em%
+    %  \begin{tabular}[t]{c}
+    %    \@author
+    %  \end{tabular}\par
+    %}%
+    %\vskip 1em%
+    %{\Large \@date \par}%
+    %\vskip \z@ \@plus 1em
+    %{\Large \@publishers \par}
+    %\ifx\@dedication\@empty \else
+    %  \vskip 2em
+    %  {\Large \@dedication \par}
+    %\fi
+  \end{center}%
+  \par
+  \vskip 2em
+}%
 \makeatother
+
+
 
 % use the latin modern font
 \usepackage[T1]{fontenc}
