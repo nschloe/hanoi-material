@@ -5,6 +5,11 @@ parskip=half,
 oneside
 ]{scrartcl}
 
+
+\subject{Hanoi Fall School 2013 on Numerical Analysis}
+\author{}
+\date{}
+
 \usepackage[USenglish]{babel}
 
 \usepackage{graphicx}
@@ -30,10 +35,23 @@ oneside
 %\includegraphics[width=0.15\paperwidth]{logos/tu-logo-long}
 \includegraphics[height=0.1\textwidth]{logos/tu_logo_short}
 }
-\subject{Hanoi Fall School 2013 on Numerical Analysis}
 
-\author{}
-\date{}
+% We're not providing \author or \date, so define a new \maketitle that
+% ignores those (and doesn't reserve any extra space), cf.
+% <http://tex.stackexchange.com/questions/134851/when-author-date-fields-blank-remove-whitespace-between-header-and-text>.
+\makeatletter
+\renewcommand{\@maketitle}{\null\vskip 2em
+\begin{center}
+  \ifx\@subject\@empty \else
+    {\subject@font \@subject \par}
+    \vskip 1.5em
+  \fi
+  \titlefont\huge \@title\par
+  \vskip .5em
+  {\ifx\@subtitle\@empty\else\usekomafont{subtitle}\@subtitle\par\fi}%
+\end{center}
+\vskip 2em}
+\makeatother
 
 % use the latin modern font
 \usepackage[T1]{fontenc}
