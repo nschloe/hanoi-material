@@ -1,8 +1,8 @@
 % Main routine.
 % -----------------------------------------------------------------------------
-%f = @beale;
+f = @beale;
 %f = @rosenbrock;
-f = @sphere;
+%f = @sphere;
 
 % Plot the function.
 doPlot = true;
@@ -18,10 +18,12 @@ if doPlot
 end
 % -----------------------------------------------------------------------------
 % Define the problem
+gradientF = @beale_gradient;
+hessianF = @beale_hessian;
 %gradientF = @rosenbrock_gradient;
 %hessianF = @rosenbrock_hessian;
-gradientF = @sphere_gradient;
-hessianF = @sphere_hessian;
+%gradientF = @sphere_gradient;
+%hessianF = @sphere_hessian;
 x0 = [1.2, 1.2];
 %x0 = [-1.2, 1];
 % -----------------------------------------------------------------------------
@@ -32,7 +34,7 @@ maxit = 1000;
 % Conjugate gradient.
 [x_cg, resvec_cg] = conjugateGradient(f, gradientF, x0, alpha0, tol, maxit);
 % Newton's method.
-[x_n, flag, resvec_n] = newton(f, gradientF, hessianF, x0, tol, maxit);
+%[x_n, flag, resvec_n] = newton(f, gradientF, hessianF, x0, tol, maxit);
 % -----------------------------------------------------------------------------
 % Post processing: some plots.
 figure;
