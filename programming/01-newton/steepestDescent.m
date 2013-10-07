@@ -16,11 +16,15 @@ function [X, resvec, flag] = ...
       end
       p = -gradF(X(end,:));
       p = p(:)';
-      % Backtracking line search.
-      alpha = alpha0;
-      while ~all(wolfe(f, X(end,:), gradF, alpha, p))
-          alpha = tau*alpha;
-      end
+      % Choose a step size.
+      alpha0 = 1.0;
+      sigma = 0.4;
+      alpha = armijo(f, X(end,:), gradF(X(end,:)), p, alpha0, sigma)
+      %% Backtracking line search.
+      %alpha = alpha0;
+      %while ~all(wolfe(f, X(end,:), gradF, alpha, p))
+      %    alpha = tau*alpha;
+      %end
       X(end+1,:) = X(end,:) + alpha * p;
       resvec(end+1) = norm(f(X(end,:)))
   end
