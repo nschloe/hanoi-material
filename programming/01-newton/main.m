@@ -24,8 +24,10 @@ gradientF = @rosenbrock_gradient;
 hessianF = @rosenbrock_hessian;
 %% Steepest descent.
 %[x, resvec] = steepestDescent(f, gradientF, x0, alpha0, tol, maxit);
-% Newton's method.
-[x, flag, resvec] = newton(f, gradientF, hessianF, x0, tol, maxit);
+% Conjugate gradient.
+[x, resvec] = conjugateGradient(f, gradientF, x0, alpha0, tol, maxit);
+%% Newton's method.
+%[x, flag, resvec] = newton(f, gradientF, hessianF, x0, tol, maxit);
 % -----------------------------------------------------------------------------
 % Post processing: some plots.
 figure;
