@@ -18,12 +18,12 @@ function [X, flag, resvec] = newton(f, gradF, hessianF, x0, tol, maxit)
       p = -hessianF(X(end,:)) \ gradFx;
       p = p(:)';
       % - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-      %% Armijo rule.
-      %alpha0 = 1.0;
-      %sigma = 0.4;
-      %alpha = armijo(f, X(end,:), gradFx, p, alpha0, sigma);
+      % Armijo rule.
+      alpha0 = 1.0;
+      sigma = 0.4;
+      alpha = armijo(f, X(end,:), gradFx, p, alpha0, sigma);
       % - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-      alpha = 1.0;
+      %alpha = 1.0;
       % - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       X(end+1,:) = X(end,:) + alpha * p;
       gradFx = gradF(X(end,:));
