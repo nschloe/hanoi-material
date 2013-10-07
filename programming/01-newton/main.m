@@ -1,15 +1,16 @@
 % Main routine.
 % -----------------------------------------------------------------------------
-f = @sphere;
+%f = @beale;
 %f = @rosenbrock;
+f = @sphere;
 
 % Plot the function.
 doPlot = true;
 if doPlot
-    tx = linspace(-2, 2, 60);
+    tx = linspace(-4, 4, 60);
     %ty = linspace(-1, 3, 60);
-    ty = linspace(-2, 2, 60);
-    [xx, yy] = meshgrid (tx, ty);
+    ty = linspace(-4, 4, 60);
+    [xx, yy] = meshgrid(tx, ty);
     zz = f([xx(:), yy(:)]);
     zz = reshape(zz, size(xx,1), size(xx,2));
     %surf(xx, yy, zz);
