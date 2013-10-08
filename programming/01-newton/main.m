@@ -1,7 +1,7 @@
 % Main routine.
 % -----------------------------------------------------------------------------
-problem = beale();
-%problem = rosenbrock();
+%problem = beale();
+problem = rosenbrock();
 %problem = sphere();
 
 % Plot the function.

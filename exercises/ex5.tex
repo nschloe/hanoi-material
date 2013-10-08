@@ -1,6 +1,6 @@
 \input{header.tex}
 % -----------------------------------------------------------------------------
-\title{Exercise sheet 1}
+\title{Exercise sheet 5}
 \subtitle{Numerical Optimization: Basics}
 % -----------------------------------------------------------------------------
 \usepackage{amsmath}
@@ -40,11 +40,27 @@ At the point $x=(1,0)^\tp$ we consider the search direction $p=(-1,1)^\tp$.
 Show that $p$ is a descent direction and find all minimizers of the problem.
 
 \paragraph{Programming 1}  % Nocedal 3.1
-Program the steepest descent and Newton algorithms using the backtracking line
-search, Procedure 3.1. Use them to minimize the Rosenbrock function
-(\ref{eq:rosenbrock}). Set the initial step length ($\alpha_0=1$ and print the
-step length used at each method at each iteration. First try the initial point
-$x_0=(1.2, 1.2)^\tp$, and then the more difficult point $x_0=(-1.2, 1)^\tp$.
+Program
+\begin{itemize}
+  \item the steepest descent method and
+  \item Newton's method
+\end{itemize}
+with the backtracking line search.
+
+Use them to minimize
+\begin{itemize}
+  \item the Rosenbrock function (\ref{eq:rosenbrock}),
+  \item the \emph{sphere function}
+    \[
+      f(x) = \sum_{i=1}^n x_i^2,
+    \]
+    and
+  \item one function of your choice from
+    \url{https://en.wikipedia.org/wiki/Test_functions_for_optimization}.
+\end{itemize}
+Set the initial step length $\alpha_0=1$ and print the step length used at
+each method at each iteration. First try the initial point $x_0=(1.2,
+1.2)^\tp$, and then the more difficult point $x_0=(-1.2, 1)^\tp$.
 
 % TODO add Hintermueller exercises?
 

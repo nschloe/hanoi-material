@@ -11,13 +11,13 @@ LATEX_OPTIONS:=-shell-escape
 default: ex1
 
 ex1:
-	@$(LATEX) $(LATEX_OPTIONS) ex1
+	@$(LATEX) $(LATEX_OPTIONS) ex5
 
-ex2:
-	@$(LATEX) $(LATEX_OPTIONS) ex2
+ex7:
+	@$(LATEX) $(LATEX_OPTIONS) ex7
 
-ex3:
-	@$(LATEX) $(LATEX_OPTIONS) ex3
+ex9:
+	@$(LATEX) $(LATEX_OPTIONS) ex9
 
 .PHONY: clean
 
