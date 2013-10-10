@@ -1,0 +1,125 @@
+\input{header.tex}
+% -----------------------------------------------------------------------------
+\title{Solutions for exercise sheet 5}
+\subtitle{Numerical Optimization: Basics}
+% -----------------------------------------------------------------------------
+\usepackage{amsmath}
+% -----------------------------------------------------------------------------
+\newcommand\tp{\ensuremath{\text{\upshape T}}}
+% =============================================================================
+\begin{document}
+\maketitle
+
+\paragraph{Exercise 1.1} % Nocedal 2.1
+\begin{itemize}
+\item \[
+\nabla f(x) =
+\begin{pmatrix}
+-400 x(y-x^2)-2(1-x)\\
+200(y-x^2)
+\end{pmatrix}
+\]
+\item \[
+\nabla^2 f(x) =
+\begin{pmatrix}
+-400x (y-3x^2) + 2 & -400x\\
+-400x              & 200
+\end{pmatrix}
+\]
+\item $\nabla f(x^*) = 0$, $x*=(1,1)^\tp$ is the only solution.
+\item
+\[
+\nabla^2 f(x*) =
+\begin{pmatrix}
+802 & -400\\
+-400 & 200
+\end{pmatrix}
+\]
+is positive definite since $802>0$ and $\det(\nabla^2 f(x^*)) = 802\cdot200 - 400\cdot 400 > 0$ (Sylvester's criterion).
+\end{itemize}
+
+
+\paragraph{Exercise 1.2} % Nocedal 2.2
+Show that the function
+\[
+  f(x) = 8x_1 + 12x_2 + x_1^2 - 2x_2^2
+\]
+has only one stationary point, and that it is neither a maximum nor a minimum,
+but a saddle point. Sketch the contour lines of $f$.
+
+\begin{itemize}
+\item
+\[
+\nabla f(x) =
+\begin{pmatrix}
+8 + 2x\\
+12 - 4y
+\end{pmatrix}.
+\]
+The unique solution of $\nabla f(x^*) = 0$ is $x^*=(-4,3)^\tp$.
+\item
+\[
+\nabla^2 f(x) =
+\begin{pmatrix}
+2 & 0\\
+0 & - 4
+\end{pmatrix}.
+\]
+The eigenvalues of $\nabla^2 f(x^*)$ are $\{2, -4\}$, so it is not positive-definite. Hence, $x^*$ is not a minimizer of $f$. With the same argument for $-f$ we see that $x^*$ neither is a minimizer of $-f$, i.e., a maximizer of $f$. Hence, $x^*$ is a saddle point.
+
+% TODO plot
+\end{itemize}
+
+
+\paragraph{Exercise 1.3} % Nocedal 2.7
+Let $S$ be the set of global minimizers of $f$. If $S$ only has one element,
+then it is obviously a convex set. Otherwise for all $x, y \in S$ and
+$\alpha\in [0, 1]$,
+\[
+f (\alpha x + (1 − \alpha)y) \le \alpha f(x) + (1 − \alpha)f (y)
+\]
+since $f$ is convex. $f(x) = f(y)$ since $x, y$ are both global minimizers.
+Therefore,
+\[
+f (\alpha x + (1 − \alpha)y) \le \alpha f (x) + (1 − \alpha)f (x) = f (x).
+\]
+But since $f (x)$ is a global minimizing value, $f (x) \le f (\alpha x + (1 −
+\alpha)y)$.  Therefore, $f (\alpha x + (1 − \alpha y) = f (x)$ and hence
+$\alpha x + (1 − \alpha )y \in S$. Thus $S$ is a convex set.
+
+
+\paragraph{Exercise 1.4} % Nocedal 2.8
+Consider the function
+\[
+  f(x_1, x_2) = (x_1+x_2^2)^2.
+\]
+At the point $x=(1,0)^\tp$ we consider the search direction $p=(-1,1)^\tp$.
+Show that $p$ is a descent direction and find all minimizers of the problem.
+
+$−\nabla f$ indicates steepest descent. $p_k\cdot · (−\nabla f) = \|p_k\| \|\nabla f\| \cos\theta$. $p_k$ is a descent direction if $−\pi/2 < \theta < \pi /2$, i.e., $\cos \theta > 0$. This means that
+\[
+0 \stackrel{!}{<} \cos\theta = \frac{p_k\cdot (-\nabla f)}{\|p_k\|\|\nabla f\|},
+\]
+so we have to check if $p_k\cdot\nabla f < 0$:
+\[
+\nabla f(x) =
+\begin{pmatrix}
+2(x+y^2)\\
+4y(x+y^2)
+\end{pmatrix},
+\quad
+\nabla f((1,0)^\tp) =
+\begin{pmatrix}
+2\\
+0
+\end{pmatrix}.
+\]
+\[
+p_k \cdot \nabla f
+=
+(-1, 1)^\tp \cdot (2,0)^\tp = -2 < 0.
+\]
+so indeed, $p$ is a descent direction at $(1,0)^\tp$.
+
+\end{document}
+% =============================================================================
