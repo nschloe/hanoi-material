@@ -2,15 +2,11 @@
 % -----------------------------------------------------------------------------
 \title{Solutions for exercise sheet 5}
 \subtitle{Numerical Optimization: Basics}
-% -----------------------------------------------------------------------------
-\usepackage{amsmath}
-% -----------------------------------------------------------------------------
-\newcommand\tp{\ensuremath{\text{\upshape T}}}
 % =============================================================================
 \begin{document}
 \maketitle
 
-\paragraph{Exercise 1.1} % Nocedal 2.1
+\paragraph{Exercise 5.1} % Nocedal 2.1
 \begin{itemize}
 \item \[
 \nabla f(x) =
@@ -39,14 +35,7 @@ is positive definite since $802>0$ and $\det(\nabla^2 f(x^*)) = 802\cdot200 - 40
 \end{itemize}
 
 
-\paragraph{Exercise 1.2} % Nocedal 2.2
-Show that the function
-\[
-  f(x) = 8x_1 + 12x_2 + x_1^2 - 2x_2^2
-\]
-has only one stationary point, and that it is neither a maximum nor a minimum,
-but a saddle point. Sketch the contour lines of $f$.
-
+\paragraph{Exercise 5.2} % Nocedal 2.2
 \begin{itemize}
 \item
 \[
@@ -70,25 +59,73 @@ The eigenvalues of $\nabla^2 f(x^*)$ are $\{2, -4\}$, so it is not positive-defi
 % TODO plot
 \end{itemize}
 
+\paragraph{Exercise 5.3} % Nocedal 2.3
+\begin{itemize}
+\item
+\[
+\nabla f_1(x) = \sum_{i=1}^n a_i x_i,
+\]
+\[
+\nabla f_1(x) =
+\begin{pmatrix}
+\partial f_1/\partial x_1\\
+\vdots\\
+\partial f_1/\partial x_n
+\end{pmatrix}
+=
+\begin{pmatrix}
+a_1\\
+\vdots\\
+a_n
+\end{pmatrix}
+=
+a
+\]
+\[
+(\nabla^2 f_1(x))_{i,j}
+= \frac{\partial^2 f_1}{\partial x_i \partial x_j}(x)
+= \frac{\partial a_i}{\partial x_j}
+= 0.
+\]
 
-\paragraph{Exercise 1.3} % Nocedal 2.7
+\item
+\[
+f_2(x) = \sum_{i=1}^n \sum_{j=1}^n x_i A_{i,j} x_j
+\]
+\[
+(\nabla f_2(x))_s
+= \partial f_2/\partial x_s
+= \sum_{j=1}^n A_{s,j} x_j + \sum_{i=1}^n x_s A_{i,s}
+= 2\sum_{j=1}^n A_{s,j} x_j,
+\]
+so $\nabla f_2(x) = 2Ax$.
+\[
+(\nabla^2 f_2(x))_{s, t}
+= \frac{\partial^2 f_2}{\partial x_s \partial x_t}(x)
+= A_{s,t} + A_{t,s}
+= 2 A_{s,t}
+\]
+so $\nabla^2 f_2(x) = 2A$.
+\end{itemize}
+
+\paragraph{Exercise 5.4} % Nocedal 2.7
 Let $S$ be the set of global minimizers of $f$. If $S$ only has one element,
 then it is obviously a convex set. Otherwise for all $x, y \in S$ and
 $\alpha\in [0, 1]$,
 \[
-f (\alpha x + (1 − \alpha)y) \le \alpha f(x) + (1 − \alpha)f (y)
+f (\alpha x + (1 - \alpha)y) \le \alpha f(x) + (1 - \alpha)f (y)
 \]
 since $f$ is convex. $f(x) = f(y)$ since $x, y$ are both global minimizers.
 Therefore,
 \[
-f (\alpha x + (1 − \alpha)y) \le \alpha f (x) + (1 − \alpha)f (x) = f (x).
+f (\alpha x + (1 - \alpha)y) \le \alpha f (x) + (1 - \alpha)f (x) = f (x).
 \]
-But since $f (x)$ is a global minimizing value, $f (x) \le f (\alpha x + (1 −
-\alpha)y)$.  Therefore, $f (\alpha x + (1 − \alpha y) = f (x)$ and hence
-$\alpha x + (1 − \alpha )y \in S$. Thus $S$ is a convex set.
+But since $f (x)$ is a global minimizing value, $f (x) \le f (\alpha x + (1 -
+\alpha)y)$.  Therefore, $f (\alpha x + (1 - \alpha y) = f (x)$ and hence
+$\alpha x + (1 - \alpha )y \in S$. Thus $S$ is a convex set.
 
 
-\paragraph{Exercise 1.4} % Nocedal 2.8
+\paragraph{Exercise 5.5} % Nocedal 2.8
 Consider the function
 \[
   f(x_1, x_2) = (x_1+x_2^2)^2.
@@ -120,6 +157,45 @@ p_k \cdot \nabla f
 (-1, 1)^\tp \cdot (2,0)^\tp = -2 < 0.
 \]
 so indeed, $p$ is a descent direction at $(1,0)^\tp$.
+
+The ideal step size $\alpha^*$ is the value that minimizes $f(x_k+\alpha
+p_k)$. In this case,
+\[
+g(\alpha) \dfn f(x_k + \alpha p_k) = f((1-\alpha,\alpha)^\tp) = ((1-\alpha)+\alpha^2)^2.
+\]
+We have
+\[
+\frac{\dd g}{\dd\alpha} = 2(1-\alpha+\alpha^2)(-1+2\alpha),
+\]
+which is $0$ for $\alpha\in\{1/2, 1/2\pm\ii\sqrt{1/2}\}$. We are only
+interested in real-valued solutions, so let $\alpha^*=1/2$. Indeed, we have
+\[
+\left.\frac{\dd^2 g}{\dd\alpha^2}\right|_{\alpha=\alpha^*}
+= \left.6(2\alpha^2-2\alpha+1)\right|_{\alpha=\alpha^*}
+= 3 > 0,
+\]
+so $\alpha^*$ is indeed a minimizer.
+
+\paragraph{Exercise 5.6} % Nocedal 2.9
+
+We have
+\[
+x_j = \sum_{i=1}^n S_{j,i}z_i  + s_j.
+\]
+From this follows that
+\[
+\frac{\partial \tilde{f}}{\partial z_i}
+= \sum_{j=1}^n \frac{\partial f}{\partial x_j} \frac{\partial x_j}{\partial z_i}
+= \sum_{j=1}^n \frac{\partial f}{\partial x_j} S_{j,i}
+= (S^\tp\nabla f(x))_i.
+\]
+The same works for the second derivative:
+\[
+\frac{\partial^2 \tilde{f}}{\partial z_i\partial z_k}
+= \frac{\partial}{\partial z_k}\sum_{j=1}^n \frac{\partial f}{\partial x_j} S_{j,i}
+= \sum_{j=1}^n\sum_{l=1}^n \frac{\partial^2 f}{\partial x_j \partial x_l} S_{l,k} S_{j,i}
+= (S^\tp \nabla^2 f(x)S)_{k,i}.
+\]
 
 \end{document}
 % =============================================================================
