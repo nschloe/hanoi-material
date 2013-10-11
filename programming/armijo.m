@@ -1,7 +1,7 @@
 function alpha = armijo(f, x, gradFx, p, alpha0, sigma)
 %ARMIJO    Armijo condition as step size strategy.
 
-  % Make all vectors row vectors.
+  % Make sure that all vectors are row vectors.
   x = x(:)';
   p = p(:)';
 

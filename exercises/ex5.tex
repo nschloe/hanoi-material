@@ -36,7 +36,7 @@ gradient and Hessian of $f_1(x) = a^\tp x$ and $f_2 (x) =x^\tp Ax$.
 
 
 \paragraph{Exercise 5.4} % Nocedal 2.7
-Suppose that $f$ is a convex function. Show that the set of global minimizer
+Suppose that $f$ is a convex function. Show that the set of global minimizers
 of $f$ is a convex set.
 
 \paragraph{Exercise 5.5} % Nocedal 2.8
@@ -53,20 +53,22 @@ n}$, $s\in\R^n$. Show that
 \[
   \begin{split}
   \nabla\tilde{f}(z) = S^\tp \nabla f(x),\\
-  \nabla^2\tilde{f}(z) = S^\tp \nabla^2 f(x) S
+  \nabla^2\tilde{f}(z) = S^\tp \nabla^2 f(x) S.
 \end{split}
 \]
 (Hint: Use the chain rule to express $\dd \tilde{f}/\dd z_j$ in terms of $\dd f/\dd x_i$ and $\dd x_i/\dd z_j$ for all $i, j\in\{1,\dots,n\}$.)
 
 \paragraph{Programming 5}  % Nocedal 3.1
-Get the example code from \url{http://page.math.tu-berlin.de/~kandler/Hanoi2013/Exercise_5/} and examine the \texttt{sphere.m} function
+Get the example code from \url{http://page.math.tu-berlin.de/~kandler/Hanoi2013/Exercise_5/} and examine the \texttt{sphere.m} function that implements
 \[
   f(x) = \sum_{i=1}^n x_i^2.
 \]
 \begin{itemize}
-  \item Visualize the function and its gradient. Hint: Check out the Octave
-    functions \texttt{surf()}, \texttt{contourf()}, or \texttt{quiver()}.
-  \item Write an equivalent for the Rosenbrock function (\ref{eq:rosenbrock}), and also visualize it.
+  \item Visualize the function and its gradient. (Hint: Check out
+    \texttt{visualize.m} with the Octave functions \texttt{surf()},
+    \texttt{contourf()}, or \texttt{quiver()}.)
+  \item Write an equivalent for the Rosenbrock function (\ref{eq:rosenbrock}),
+    and also visualize it.
   \item Do the same for one function of your choice from
     \url{https://en.wikipedia.org/wiki/Test_functions_for_optimization}.
 \end{itemize}
@@ -78,23 +80,23 @@ still missing a sensible step-size control.
     \texttt{steepestDescent.m} with initial step size guess
     \texttt{alpha0=1.0} and decrease factor \texttt{sigma=0.4}.
 \end{itemize}
-Also,
-\begin{itemize}
-  \item copy the file \texttt{steepestDescent.m} to a new file
-    \texttt{newton.m} and
-  \item modify it in such a way that it implements Newton's method.  (Hint:
-    Only the search direction \texttt{p} needs to be adapted.)
-\end{itemize}
-
-Then apply the steepest descent method and Newton's method to the all
-functions from above.  First try the initial point $x_0=(1.2, 1.2)^\tp$, and
-then $x_0=(-1.2, 1)^\tp$.
+Then apply the steepest descent method to the all functions from above.  First
+try the initial point $x_0=(1.2, 1.2)^\tp$, and then $x_0=(-1.2, 1)^\tp$.
 \begin{itemize}
   \item Visualize the steps with \texttt{contourf()} for the function $f$ and
     \texttt{plot(..., 'r-x')} for the iterates. Also plot the subsequent
     residuals $f(x_k)$ using \texttt{semilogy()}.
 \end{itemize}
 What do you observe?
+
+Now copy the file \texttt{steepestDescent.m} to a new file \texttt{newton.m}
+and
+\begin{itemize}
+  \item modify it in such a way that it implements Newton's method.  (Hint:
+    Only the search direction \texttt{p} needs to be adapted.)
+  \item Perform the same experiments as above with Newton's method.
+\end{itemize}
+
 
 \end{document}
 % =============================================================================
