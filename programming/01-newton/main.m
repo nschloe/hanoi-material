@@ -49,5 +49,4 @@ if doPlot
     plot(x_sd(:,1), x_sd(:,2), 'r-x');
     hold off;
 end
-%matlab2tikz('test.tex', 'standalone', true)
 % -----------------------------------------------------------------------------

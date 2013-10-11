@@ -14,8 +14,8 @@ end
 % -----------------------------------------------------------------------------
 function out = gradient(x)
 %SPHERE_GRADIENT    Gradient of the sphere function.
-  out = [2*x(1); ...
-         2*x(2)];
+  out = [2*x(:,1), 2*x(:,2)];
+  out = out';
 end
 % -----------------------------------------------------------------------------
 function out = hessian(x)
