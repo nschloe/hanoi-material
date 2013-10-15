@@ -43,7 +43,7 @@ When using the steepest-descent method for the problem
 with a symemetric, positiv-definite matrix $A\in\R^{n\times n}$, $b\in\R^n$,
 we know that the optimal step size is
 \[
-  \alpha_k = \frac{\nabla f_k^\tp \nabla f_k}{\nabla f_k^\tp Q \nabla f_k}.
+  \alpha_k = \frac{\nabla f_k^\tp \nabla f_k}{\nabla f_k^\tp A \nabla f_k}.
 \]
 Prove that
 \begin{equation}\label{eq:steepest residual}
@@ -53,7 +53,7 @@ Prove that
 (where $\|y\|_A\dfn \sqrt{y^\tp Ay}$)
 by working through the following steps.
 \begin{enumerate}
-  \item Use (3.26) to show that
+  \item Show that
 \[
   \|x_k - x^*\|_A^2 - \|x_{k+1} - x^*\|_A^2 = 2\alpha_k\nabla f_k^\tp A(x_k-x^*) - \alpha_k \nabla f_k^\tp A \nabla f_k.
 \]
