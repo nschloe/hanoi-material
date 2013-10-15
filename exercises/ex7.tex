@@ -1,19 +1,18 @@
 \input{header.tex}
 % -----------------------------------------------------------------------------
 \title{Exercise sheet 7}
-\subtitle{Numerical Optimization: Convergence, Conjugate Gradient method}
+\subtitle{Numerical Optimization: Convergence, general descent methods, CG}
 % -----------------------------------------------------------------------------
-\usepackage{amsmath}
-% -----------------------------------------------------------------------------
-\newcommand\tp{\ensuremath{\text{\upshape T}}}
+\usepackage{algorithm} % algorithm floating env
+\usepackage{algpseudocode}
 % =============================================================================
 \begin{document}
 \maketitle
 
-\paragraph{Exercise 2.1} % Nocedal 2.12
-Show that the sequence $x_k=1/k$ is no Q-linearly convergent, although it does converge to $0$. (This is called \emph{sublinear convergence.})
+\paragraph{Exercise 7.1} % Nocedal 2.12
+Show that the sequence $x_k=1/k$ is not Q-linearly convergent, although it does converge to $0$. (This is called \emph{sublinear convergence.})
 
-\paragraph{Exercise 2.2} % Nocedal 2.13
+\paragraph{Exercise 7.2} % Nocedal 2.13
 Show that the sequence
 \[
 x_k = 1 + \left(\frac{1}{2}\right)^{2^k}
@@ -22,38 +21,161 @@ is Q-quadratically convergent to 1.
 
 % Alternatives:
 
-%\paragraph{Exercise 2.2} % Nocedal 2.14
+%\paragraph{Exercise 7.3} % Nocedal 2.14
 %Does the sequence $1/k!$ converge Q-superlinearly? Q-quadratically?
 
-%\paragraph{Exercise 2.2} % Nocedal 2.15
-%Consider the sequence $\{x_k\}$ defined by
-%\[
-%x_k =
-%\begin{cases}
-%(1/4)^{2^k},\quad&k\text{ even,}\\
-%x_{k-1}/k,\quad&k\text{ odd.}
-%\end{cases}
-%\]
-%Is the sequence Q-superlinearly convergent? Q-quadratically? R-quadratically?
-
-\paragraph{Exercise 2.3}  % Nocedal 5.2
-Show that if the nonzero vectors $p_0, p_1,\dots, p_k$ satisfy (??), where $A$
-is symmetric and positive-definite, then these vectors are linearly
-independent. (The results implies that $A$ has at most $n$ conjugate
-directions.)
-
-\paragraph{Exercise 2.4}  % Nocedal 5.4
-Show that if $f(\cdot)$ is a strictly convex quadratic function, the function
-$h(\sigma)=f(x_0+\sigma_0 p_0 + \dots \sigma_{k-1}p_{k-1})$ also is a strictly
-convex quadratic function in $\sigma=(\sigma_0,\dots,\sigma_{k-1})^\tp$.
-
-\paragraph{Programming 2} % Nocedal 5.1
-Implement the Conjugate Gradient algorithm and use it to solve linear systems
-with \emph{Hilbert matrices} $H$,
+\paragraph{Exercise 7.3} % Nocedal 2.15
+Consider the sequence $\{x_k\}$ defined by
 \[
-H_{i,j} = \frac{1}{i+j+1}.
+x_k =
+\begin{cases}
+(1/4)^{2^k},\quad&k\text{ even,}\\
+x_{k-1}/k,\quad&k\text{ odd.}
+\end{cases}
 \]
-Set the right-hand side to $b=(1,\dots,1)^\tp$ and the initial point to $x_0=(0,\dots,0)^\tp$. Try dimensions $5, 8, 12, 20$, and report the number of iterations required to reduce the residual below $10^{-6}$.
+Is the sequence Q-superlinearly convergent? Q-quadratically?
+
+\paragraph{Exercise 7.4} % Nocedal 3.7
+Prove that
+\begin{equation}\label{eq:steepest residual}
+  \|x_{k+1} - x^*\|_A^2
+  = \left(1 - \frac{(\nabla f_k^\tp\nabla f_k)^2}{(\nabla f_k^\tp A\nabla f_k)(\nabla f_k^\tp A^{-1} \nabla f_k)}\right)\|x_{k+1} - x^*\|_A^2
+\end{equation}
+by working through the following steps.
+\begin{enumerate}
+  \item Use (3.26) to show that
+\[
+  \|x_k - x^*\|_A^2 - \|x_{k+1} - x^*\|_A^2 = 2\alpha_k\nabla f_k^\tp A(x_k-x^*) - \alpha_k \nabla f_k^\tp A \nabla f_k
+\]
+where $\|y\|_A\dfn \sqrt{y^\tp Ay}$.
+  \item Use the fact that $\nabla f_k = A(x_k - x^*)$ to obtain
+    \[
+      \|x_k-x^*\|_A^2 - \|x_{k+1}-x^*\|_A^2
+      = \frac{2(g_k^\tp g_k)^2}{g_k^\tp A g_k} - \frac{(g_k^\tp g_k)^2}{g_k^\tp A g_k}
+    \]
+    and
+    \[
+      \|x_k-x^*\|_A^2 = \nabla f(x_k)^\tp A^{-1} \nabla f(x_k).
+    \]
+\end{enumerate}
+
+
+\paragraph{Exercise 7.5} % Nocedal 3.6
+Consider the steepest descent method \emph{with exact line searches} applied
+to the convex quadratic function
+\begin{equation}\label{eq:convex quadratric}
+  f(x) = \frac{1}{2} x^\tp A x - b^\tp x
+\end{equation}
+with a symmetric, positive-definite matrix $A\in\R^{n\times n}$, $b\in\R^n$.
+
+Using (\ref{eq:steepest residual}), show that if the initial point is such
+that $x_0 - x^*$ is parallel to an eigenvector of $A$, then the steepest
+descent method will find the solution in one step.
+
+\paragraph{Exercise 7.6*}
+Let $A$ be a positive definite symmetric matrix. Prove the
+\emph{Kantorovich\footnote{Leonid Vitaliyevich Kantorovich (1912--1986),
+    Soviet mathematician and economist, known for his theory and development
+    of techniques for the optimal allocation of resources. Nobel Prize in
+    Economics in 1975.} inequality}, i.e., that for any vector $x$
+\[
+  \frac{(x^\tp x)^2}{(x^\tp A x)(x^\tp A^{-1}x)}
+  \ge \frac{4\lambda_n\lambda_1}{(\lambda_n + \lambda_1)^2},
+\]
+where $\lambda_n$ and $\lambda_1$ are the largest and smallest eigenvalues of
+$A$, respectively.
+
+%\paragraph{Exercise 7.5}  % Nocedal 5.2
+%Show that if the nonzero vectors $p_0, p_1,\dots, p_k$ satisfy (??), where $A$
+%is symmetric and positive-definite, then these vectors are linearly
+%independent. (The results implies that $A$ has at most $n$ conjugate
+%directions.)
+%
+%\paragraph{Exercise 7.6}  % Nocedal 5.4
+%Show that if $f(\cdot)$ is a strictly convex quadratic function, the function
+%$h(\sigma)=f(x_0+\sigma_0 p_0 + \dots \sigma_{k-1}p_{k-1})$ also is a strictly
+%convex quadratic function in $\sigma=(\sigma_0,\dots,\sigma_{k-1})^\tp$.
+%
+%\paragraph{Programming 7} % Nocedal 5.1
+%Implement the Conjugate Gradient algorithm and use it to solve linear systems
+%with \emph{Hilbert matrices} $H$,
+%\[
+%H_{i,j} = \frac{1}{i+j+1}.
+%\]
+%Set the right-hand side to $b=(1,\dots,1)^\tp$ and the initial point to
+%$x_0=(0,\dots,0)^\tp$. Try dimensions $5, 8, 12, 20$, and report the number
+%of iterations required to reduce the residual below $10^{-6}$.
+
+\paragraph{Programming 7}
+We will program the \emph{nonlinear conjugate gradient method}, a general
+descent method like the method of steepest descent devised by
+Hestenes\footnote{Magnus Rudolph Hestenes (1906--1991), American
+mathematician. Invented the conjugate gradient method together with Lanczos
+and Stiefel.} and Stiefel\footnote{Eduard L. Stiefel (1909--1978), Swiss
+mathematician.}.
+While the descent
+direction for steepest-descent is chosen as $p_k=-\nabla f(x_k)$, the
+conjugate gradient scheme is somewhat more involved (see algorithm~\ref{alg:cg}).
+
+Today's assignment includes:
+\begin{itemize}
+    \item Make sure that you can understand and run \texttt{steepestDescent.m}
+      for the Rosenbrock\footnote{Howard Harry Rosenbrock (1920--2010),
+      leading figure in control theory and control engineering.} problem (and
+      possibly others).
+    \item Based on \texttt{steepestDescent.m}, implement nonlinear CG. You
+      will only have to adapt the search direction according to
+      algorithm~\ref{alg:cg}; for step size, you can use the
+      Armijo-backtracking from exercise 5.
+    \item Run nonlinear CG on some test problems (e.g., the Rosenbrock
+      problem). What do you observe?
+\end{itemize}
+
+\begin{algorithm}
+  \begin{algorithmic}[1]
+    \If{$k=1$}
+      \State $p_k = -\nabla f(x_k)$
+    \Else
+      \State $p_k = -\nabla f(x_k) + \beta p_{k-1}$
+  with different strategies for $\beta$:
+  \begin{itemize}
+    \item Fletcher--Reeves:
+      \[
+        \beta_{\text{FR}}=\frac{\nabla f(x_k)^\tp \nabla f(x_k)}{\nabla f(x_{k-1})^\tp \nabla f(x_{k-1})}
+        \]
+       \item Polak--Ribi\`ere:
+         \[
+           \beta_{\text{PR}}=\frac{\nabla f(x_k)^\tp (\nabla f(x_k)-\nabla f(x_{k-1}))}{\nabla f(x_{k-1})^\tp \nabla f(x_{k-1})}
+      \]
+    \item Hestenes--Stiefel:
+         \[
+           \beta_{\text{HS}}=-\frac{\nabla f(x_k)^\tp (\nabla f(x_k)-\nabla f(x_{k-1}))}{p_{k-1}^\tp (\nabla f(x_{k}) - \nabla f(x_{k-1}))}
+      \]
+  \end{itemize}
+    \EndIf
+  \end{algorithmic}
+  \caption{Search direction for the nonlinear conjugate gradient method.}
+  \label{alg:cg}
+\end{algorithm}
+
+
+%Use the steepest descent method to solve linear system of the type
+%(\ref{eq:convex quadratric}). For testing purposes, use
+%\emph{Hilbert\footnote{David Hilbert (1862--1943). German mathematician,
+%    recognized as one of the most influential and universal mathematicians of
+%    the 19th and early 20th centuries.} matrices} $H$,
+%\[
+%H_{i,j} = \frac{1}{i+j+1}
+%\]
+%(Octave command \texttt{hilb(n)}). Set the right-hand side to $b=(1,\dots,1)^\tp$.
+%\begin{enumerate}
+%  \item Use $x_0=(0,\dots,0)^\tp$ as initial point. Try dimensions $5, 8, 12,
+%    20$, and report the number of iterations required to reduce the residual
+%    below $10^{-10}$.
+%  \item Verify the statement from exercise 7.6.
+%\end{enumerate}
+
+
 
 \end{document}
 % =============================================================================
