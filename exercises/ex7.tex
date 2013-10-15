@@ -36,22 +36,31 @@ x_{k-1}/k,\quad&k\text{ odd.}
 Is the sequence Q-superlinearly convergent? Q-quadratically?
 
 \paragraph{Exercise 7.4} % Nocedal 3.7
+When using the steepest-descent method for the problem
+\begin{equation}\label{eq:convex quadratic}
+   f(x) = \frac{1}{2} x^\tp A x - b^\tp x,
+\end{equation}
+with a symemetric, positiv-definite matrix $A\in\R^{n\times n}$, $b\in\R^n$,
+we know that the optimal step size is
+\[
+  \alpha_k = \frac{\nabla f_k^\tp \nabla f_k}{\nabla f_k^\tp Q \nabla f_k}.
+\]
 Prove that
 \begin{equation}\label{eq:steepest residual}
   \|x_{k+1} - x^*\|_A^2
-  = \left(1 - \frac{(\nabla f_k^\tp\nabla f_k)^2}{(\nabla f_k^\tp A\nabla f_k)(\nabla f_k^\tp A^{-1} \nabla f_k)}\right)\|x_{k+1} - x^*\|_A^2
+  = \left(1 - \frac{(\nabla f_k^\tp\nabla f_k)^2}{(\nabla f_k^\tp A\nabla f_k)(\nabla f_k^\tp A^{-1} \nabla f_k)}\right)\|x_{k} - x^*\|_A^2
 \end{equation}
+(where $\|y\|_A\dfn \sqrt{y^\tp Ay}$)
 by working through the following steps.
 \begin{enumerate}
   \item Use (3.26) to show that
 \[
-  \|x_k - x^*\|_A^2 - \|x_{k+1} - x^*\|_A^2 = 2\alpha_k\nabla f_k^\tp A(x_k-x^*) - \alpha_k \nabla f_k^\tp A \nabla f_k
+  \|x_k - x^*\|_A^2 - \|x_{k+1} - x^*\|_A^2 = 2\alpha_k\nabla f_k^\tp A(x_k-x^*) - \alpha_k \nabla f_k^\tp A \nabla f_k.
 \]
-where $\|y\|_A\dfn \sqrt{y^\tp Ay}$.
   \item Use the fact that $\nabla f_k = A(x_k - x^*)$ to obtain
     \[
       \|x_k-x^*\|_A^2 - \|x_{k+1}-x^*\|_A^2
-      = \frac{2(g_k^\tp g_k)^2}{g_k^\tp A g_k} - \frac{(g_k^\tp g_k)^2}{g_k^\tp A g_k}
+      = \frac{2(\nabla f_k^\tp \nabla f_k)^2}{\nabla f_k^\tp A \nabla f_k} - \frac{(\nabla f_k^\tp \nabla f_k)^2}{\nabla f_k^\tp A \nabla f_k}
     \]
     and
     \[
@@ -61,15 +70,11 @@ where $\|y\|_A\dfn \sqrt{y^\tp Ay}$.
 
 
 \paragraph{Exercise 7.5} % Nocedal 3.6
-Consider the steepest descent method \emph{with exact line searches} applied
-to the convex quadratic function
-\begin{equation}\label{eq:convex quadratric}
-  f(x) = \frac{1}{2} x^\tp A x - b^\tp x
-\end{equation}
-with a symmetric, positive-definite matrix $A\in\R^{n\times n}$, $b\in\R^n$.
+Again, consider the steepest descent method \emph{with exact line searches}
+applied to the convex quadratic function~(\ref{eq:convex quadratic}).
 
 Using (\ref{eq:steepest residual}), show that if the initial point is such
-that $x_0 - x^*$ is parallel to an eigenvector of $A$, then the steepest
+that $x_0 - x^*$ is an eigenvector of $A$, then the steepest
 descent method will find the solution in one step.
 
 \paragraph{Exercise 7.6*}

@@ -20,7 +20,7 @@ and
 \]
 so
 \[
-\forall r\in(0,1) \exists k_0: \frac{k}{k+1} > r \quad\forall k>k_0.
+\forall r\in(0,1)\: \exists k_0: \frac{k}{k+1} > r \quad\forall k>k_0.
 \]
 This means that the sequence is \emph{not} Q-linearly convergent.
 
@@ -56,7 +56,7 @@ Consequently,
 \[
 \frac{\|x_{k+1}-x^*\|}{\|x_k-x^*\|} \to 0,
 \]
-i.e., the sequence converges Q-superlinear.
+i.e., the sequence converges Q-superlinearly.
 
 On the other hand, for even $k$,
 \[
@@ -68,48 +68,47 @@ so the sequence is \emph{not} Q-quadratically convergent.
 \paragraph{Exercise 7.4} % Nocedal 3.7
 We have
 \[
-x_{k+1} = x_k - \alpha \nabla f(x_k)
+x_{k+1} = x_k - \alpha \nabla f_k
 \]
 such that
 \[
-(x_{k+1} - x^*) = (x_k-x^*) - \alpha \nabla f(x_k).
+(x_{k+1} - x^*) = (x_k-x^*) - \alpha \nabla f_k.
 \]
 From this, we get
 \[
 \begin{split}
 \|x_{k+1} - x^*\|_A^2
 &= (x_{k+1} - x^*)^\tp A (x_{k+1} - x^*)\\
-&= ((x_{k} - x^*) - \alpha\nabla f(x_k))^\tp A ((x_k - x^*) - \alpha \nabla f(x_k))\\
-&= (x_{k} - x^*) A (x_k - x^*) - 2\alpha\nabla f(x_k)^\tp A(x_k-x^*) + \alpha^2\nabla f(x_k)^\tp A \nabla f(x_k)\\
-&= \|x_{k} - x^*\|_A^2 - 2\alpha\nabla f(x_k)^\tp A(x_k-x^*) + \alpha^2\nabla f(x_k)^\tp A \nabla f(x_k).
+&= ((x_{k} - x^*) - \alpha\nabla f_k)^\tp A ((x_k - x^*) - \alpha \nabla f_k)\\
+&= \underbrace{(x_{k} - x^*) A (x_k - x^*)}_{=\|x_k-x^*\|_A^2} - 2\alpha\nabla f_k^\tp A(x_k-x^*) + \alpha^2\nabla f_k^\tp A \nabla f_k
 \end{split}
 \]
-Knowing that $\nabla f(x_k)=Q(x_k - x^*)$ and $\alpha = \nabla
-f(x_k)^\tp\nabla f(x_k)/(\nabla f(x_k)^\tp A\nabla f(x_k))$, it follows that
+Knowing that $\nabla f_k=A(x_k - x^*)$ and $\alpha = \nabla
+f(x_k)^\tp\nabla f_k/(\nabla f_k^\tp A\nabla f_k)$, it follows that
 \[
 \begin{split}
 \|x_{k+1} - x^*\|_A^2
-&= \|x_k - x^*\|_A^2  - 2\alpha \nabla f(x_k)^\tp \nabla f(x_k) + \alpha^2\nabla f(x_k)^\tp A\nabla f(x_k)\\
+&= \|x_k - x^*\|_A^2  - 2\alpha \nabla f_k^\tp \nabla f_k + \alpha^2\nabla f_k^\tp A\nabla f_k\\
 &= \|x_k - x^*\|_A^2
-  - 2\frac{(\nabla f(x_k)^\tp \nabla f(x_k))^2}{\nabla f(x_k)^\tp A \nabla f(x_k)}
-  + \frac{(\nabla f(x_k)^\tp \nabla f(x_k))^2}{\nabla f(x_k)^\tp A \nabla f(x_k)}\\
+  - 2\frac{(\nabla f_k^\tp \nabla f_k)^2}{\nabla f_k^\tp A \nabla f_k}
+  + \frac{(\nabla f_k^\tp \nabla f_k)^2}{\nabla f_k^\tp A \nabla f_k}\\
 &= \|x_k - x^*\|_A^2
-  - \frac{(\nabla f(x_k)^\tp \nabla f(x_k))^2}{\nabla f(x_k)^\tp A \nabla f(x_k)}\\
+  - \frac{(\nabla f_k^\tp \nabla f_k)^2}{\nabla f_k^\tp A \nabla f_k}\\
 &= \|x_k - x^*\|_A^2
 \left(
 1
-- \frac{(\nabla f(x_k)^\tp \nabla f(x_k))^2}{(\nabla f(x_k)^\tp A \nabla f(x_k))\|x_k - x^*\|_A^2}
+- \frac{(\nabla f_k^\tp \nabla f_k)^2}{(\nabla f_k^\tp A \nabla f_k)\|x_k - x^*\|_A^2}
 \right)\\
 &= \|x_k - x^*\|_A^2
 \left(
 1
-- \frac{(\nabla f(x_k)^\tp \nabla f(x_k))^2}{(\nabla f(x_k)^\tp A \nabla f(x_k))(\nabla f(x_k)^\tp A^{-1} \nabla f(x_k))}.
+- \frac{(\nabla f_k^\tp \nabla f_k)^2}{(\nabla f_k^\tp A \nabla f_k)(\nabla f_k^\tp A^{-1} \nabla f_k)}.
 \right)
 \end{split}
 \]
 
 \paragraph{Exercise 7.5} % Nocedal 3.6
-If $x_0-x^*$ is parallel to an eigenvector (with eigenvalue $\lambda$) of $A$, then
+If $x_0-x^*$ is an eigenvector (with eigenvalue $\lambda$) of $A$, then
 \[
 \nabla f(x_0)
 = A x_0 - b
@@ -125,8 +124,8 @@ From this follows that
 \end{align*}
 Inserting this in equation from exercise 7.4 gives
 \[
-  \|x_{k+1} - x^*\|_A^2
-  = \left(1 - \frac{\lambda^4 ((x_0-x^*)^\tp(x_0-x^*))^2}{(\lambda^3 (x_0-x^*)^\tp(x_0-x^*)(\lambda (x_0-x^*)^\tp(x_0-x^*)}\right)\|x_{k+1} - x^*\|_A^2
+  \|x_{1} - x^*\|_A^2
+  = \left(1 - \frac{\lambda^4 ((x_0-x^*)^\tp(x_0-x^*))^2}{(\lambda^3 (x_0-x^*)^\tp(x_0-x^*)(\lambda (x_0-x^*)^\tp(x_0-x^*)}\right)\|x_{0} - x^*\|_A^2
 =0,
 \]
 i.e., $x_1 = x^*$.
@@ -169,7 +168,7 @@ $A$, respectively.
 \paragraph{Programming 7}
 We will program the \emph{nonlinear conjugate gradient method}, a general
 descent method like the method of steepest descent. While the descent
-direction for steepest-descent is chosen as $p_k=-\nabla f(x_k)$, the
+direction for steepest-descent is chosen as $p_k=-\nabla f_k$, the
 conjugate gradient scheme is somewhat more involved (see algorithm~\ref{alg:cg}).
 
 Today's assignment includes:
@@ -187,22 +186,22 @@ Today's assignment includes:
 \begin{algorithm}
   \begin{algorithmic}[1]
     \If{$k=1$}
-      \State $p_k = -\nabla f(x_k)$
+      \State $p_k = -\nabla f_k$
     \Else
-      \State $p_k = -\nabla f(x_k) + \beta p_{k-1}$
+      \State $p_k = -\nabla f_k + \beta p_{k-1}$
   with different strategies for $\beta$:
   \begin{itemize}
     \item Fletcher--Reeves:
       \[
-        \beta_{\text{FR}}=\frac{\nabla f(x_k)^\tp \nabla f(x_k)}{\nabla f(x_{k-1})^\tp \nabla f(x_{k-1})}
+        \beta_{\text{FR}}=\frac{\nabla f_k^\tp \nabla f_k}{\nabla f(x_{k-1})^\tp \nabla f(x_{k-1})}
         \]
        \item Polak--Ribi\`ere:
          \[
-           \beta_{\text{PR}}=\frac{\nabla f(x_k)^\tp (\nabla f(x_k)-\nabla f(x_{k-1}))}{\nabla f(x_{k-1})^\tp \nabla f(x_{k-1})}
+           \beta_{\text{PR}}=\frac{\nabla f_k^\tp (\nabla f_k-\nabla f(x_{k-1}))}{\nabla f(x_{k-1})^\tp \nabla f(x_{k-1})}
       \]
        \item Hestenes--Stiefel:
          \[
-           \beta_{\text{HS}}=-\frac{\nabla f(x_k)^\tp (\nabla f(x_k)-\nabla f(x_{k-1}))}{p_{k-1}^\tp (\nabla f(x_{k}) - \nabla f(x_{k-1}))}
+           \beta_{\text{HS}}=-\frac{\nabla f_k^\tp (\nabla f_k-\nabla f(x_{k-1}))}{p_{k-1}^\tp (\nabla f(x_{k}) - \nabla f(x_{k-1}))}
       \]
   \end{itemize}
     \EndIf
