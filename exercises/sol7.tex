@@ -76,32 +76,36 @@ such that
 \]
 From this, we get
 \[
+\begin{split}
 \|x_{k+1} - x^*\|_A^2
-= (x_{k+1} - x^*)^\tp A (x_{k+1} - x^*)
-= ((x_{k} - x^*) - \alpha\nabla f(x_k))^\tp A ((x_k - x^*) - \alpha \nabla f(x_k))
-= (x_{k} - x^*) A (x_k - x^*) - 2\alpha\nabla f(x_k)^\tp A(x_k-x^*) + \alpha^2\nabla f(x_k)^\tp A \nabla f(x_k)
-= \|x_{k} - x^*\|_A^2 - 2\alpha\nabla f(x_k)^\tp A(x_k-x^*) + \alpha^2\nabla f(x_k)^\tp A \nabla f(x_k).
+&= (x_{k+1} - x^*)^\tp A (x_{k+1} - x^*)\\
+&= ((x_{k} - x^*) - \alpha\nabla f(x_k))^\tp A ((x_k - x^*) - \alpha \nabla f(x_k))\\
+&= (x_{k} - x^*) A (x_k - x^*) - 2\alpha\nabla f(x_k)^\tp A(x_k-x^*) + \alpha^2\nabla f(x_k)^\tp A \nabla f(x_k)\\
+&= \|x_{k} - x^*\|_A^2 - 2\alpha\nabla f(x_k)^\tp A(x_k-x^*) + \alpha^2\nabla f(x_k)^\tp A \nabla f(x_k).
+\end{split}
 \]
 Knowing that $\nabla f(x_k)=Q(x_k - x^*)$ and $\alpha = \nabla
 f(x_k)^\tp\nabla f(x_k)/(\nabla f(x_k)^\tp A\nabla f(x_k))$, it follows that
 \[
+\begin{split}
 \|x_{k+1} - x^*\|_A^2
-= \|x_k - x^*\|_A^2  - 2\alpha \nabla f(x_k)^\tp \nabla f(x_k) + \alpha^2\nabla f(x_k)^\tp A\nabla f(x_k)
-= \|x_k - x^*\|_A^2
+&= \|x_k - x^*\|_A^2  - 2\alpha \nabla f(x_k)^\tp \nabla f(x_k) + \alpha^2\nabla f(x_k)^\tp A\nabla f(x_k)\\
+&= \|x_k - x^*\|_A^2
   - 2\frac{(\nabla f(x_k)^\tp \nabla f(x_k))^2}{\nabla f(x_k)^\tp A \nabla f(x_k)}
-  + \frac{(\nabla f(x_k)^\tp \nabla f(x_k))^2}{\nabla f(x_k)^\tp A \nabla f(x_k)}
-= \|x_k - x^*\|_A^2
-  - \frac{(\nabla f(x_k)^\tp \nabla f(x_k))^2}{\nabla f(x_k)^\tp A \nabla f(x_k)}
-= \|x_k - x^*\|_A^2
+  + \frac{(\nabla f(x_k)^\tp \nabla f(x_k))^2}{\nabla f(x_k)^\tp A \nabla f(x_k)}\\
+&= \|x_k - x^*\|_A^2
+  - \frac{(\nabla f(x_k)^\tp \nabla f(x_k))^2}{\nabla f(x_k)^\tp A \nabla f(x_k)}\\
+&= \|x_k - x^*\|_A^2
 \left(
-1 -
+1
 - \frac{(\nabla f(x_k)^\tp \nabla f(x_k))^2}{(\nabla f(x_k)^\tp A \nabla f(x_k))\|x_k - x^*\|_A^2}
-\right)
-= \|x_k - x^*\|_A^2
+\right)\\
+&= \|x_k - x^*\|_A^2
 \left(
-1 -
+1
 - \frac{(\nabla f(x_k)^\tp \nabla f(x_k))^2}{(\nabla f(x_k)^\tp A \nabla f(x_k))(\nabla f(x_k)^\tp A^{-1} \nabla f(x_k))}.
 \right)
+\end{split}
 \]
 
 \paragraph{Exercise 7.5} % Nocedal 3.6
@@ -115,14 +119,14 @@ If $x_0-x^*$ is parallel to an eigenvector (with eigenvalue $\lambda$) of $A$, t
 \]
 From this follows that
 \begin{align*}
-\nabla f(x_0)^\tp \nabla f(x_0)       &= \lambda^2 (x_0-x^*)^\tp (x_0-x^*),
-\nabla f(x_0)^\tp A\nabla f(x_0)      &= \lambda^3 (x_0-x^*)^\tp (x_0-x^*),
+\nabla f(x_0)^\tp \nabla f(x_0)       &= \lambda^2 (x_0-x^*)^\tp (x_0-x^*),\\
+\nabla f(x_0)^\tp A\nabla f(x_0)      &= \lambda^3 (x_0-x^*)^\tp (x_0-x^*),\\
 \nabla f(x_0)^\tp A^{-1}\nabla f(x_0) &= \lambda^1 (x_0-x^*)^\tp (x_0-x^*).
 \end{align*}
-Inserting this in equation (\ref{eq:steepest residual}) gives
+Inserting this in equation from exercise 7.4 gives
 \[
-  \|x_k+1 - x^*\|_A^2
-  = \left(1 - \frac{\lambda^4 ((x_0-x^*)\tp(x_0-x^*))^2}{(\lambda^3 (x_0-x^*)^\tp(x_0-x^*)(\lambda (x_0-x^*)^\tp(x_0-x^*)}\right)\|x_{k+1} - x^*\|_A^2
+  \|x_{k+1} - x^*\|_A^2
+  = \left(1 - \frac{\lambda^4 ((x_0-x^*)^\tp(x_0-x^*))^2}{(\lambda^3 (x_0-x^*)^\tp(x_0-x^*)(\lambda (x_0-x^*)^\tp(x_0-x^*)}\right)\|x_{k+1} - x^*\|_A^2
 =0,
 \]
 i.e., $x_1 = x^*$.

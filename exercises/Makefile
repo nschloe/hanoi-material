@@ -8,7 +8,7 @@ LATEX_OPTIONS:=-shell-escape
 
 # ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 
-default: ex5
+default: ex7
 
 ex5:
 	@$(LATEX) $(LATEX_OPTIONS) ex5
@@ -35,6 +35,19 @@ clean:
 	       ex*-figure*.dpth \
 	       ex*.snm \
 	       ex*.nav
+	@rm -f sol*-blx.bib \
+	       sol*.aux \
+	       sol*.out \
+	       sol*.auxlock \
+	       sol*.bbl \
+	       sol*.blg \
+	       sol*.log \
+	       sol*.pdf \
+	       sol*-figure*.pdf \
+	       sol*-figure*.log \
+	       sol*-figure*.dpth \
+	       sol*.snm \
+	       sol*.nav
 	@rm -f missfont.log \
 	       x.log
 	@rm -f *~
