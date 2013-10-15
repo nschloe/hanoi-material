@@ -1,0 +1,230 @@
+\input{header.tex}
+% -----------------------------------------------------------------------------
+\title{Exercise sheet 7}
+\subtitle{Numerical Optimization: Convergence, general descent methods, CG}
+% -----------------------------------------------------------------------------
+\usepackage{algorithm} % algorithm floating env
+\usepackage{algpseudocode}
+% =============================================================================
+\begin{document}
+\maketitle
+
+\paragraph{Exercise 7.1} % Nocedal 2.12
+$x^* = 0$,
+\[
+\frac{\|x_{k+1}-x^*\|}{\|x_k-x^*\|} = \left|\frac{k}{k+1}\right| < 1,
+\]
+and
+\[
+\lim_{k\to\infty} \frac{\|x_{k+1}-x^*\|}{\|x_k-x^*\|} = 1,
+\]
+so
+\[
+\forall r\in(0,1) \exists k_0: \frac{k}{k+1} > r \quad\forall k>k_0.
+\]
+This means that the sequence is \emph{not} Q-linearly convergent.
+
+
+\paragraph{Exercise 7.2} % Nocedal 2.13
+$x^* = 1$,
+\[
+\frac{\|x_{k+1}-x^*\|}{\|x_k-x^*\|^2}
+= \frac{(1/2)^{2^{k+1}}}{((1/2)^{2k})^2}
+= \frac{(1/2)^{2^{k+1}}}{(1/2)^{2k+1}}
+= 1 < \infty,
+\]
+so the sequence is Q-quadratically convergent.
+
+
+\paragraph{Exercise 7.3} % Nocedal 2.15
+For even $k$, we have
+\[
+\frac{\|x_{k+1}-x^*\|}{\|x_k-x^*\|}
+= \frac{x_k/k}{x_k}
+= \frac{1}{k}
+\to 0;
+\]
+and for odd $k$
+\[
+\frac{\|x_{k+1}-x^*\|}{\|x_k-x^*\|}
+= \frac{(1/4)^{2^k}}{x_{k-1}/k}
+= k \frac{(1/4)^{2^k}}{(1/4)^{2^{k-1}}}
+= k (1/4)^{2^{k-1}}
+\to 0.
+\]
+Consequently,
+\[
+\frac{\|x_{k+1}-x^*\|}{\|x_k-x^*\|} \to 0,
+\]
+i.e., the sequence converges Q-superlinear.
+
+On the other hand, for even $k$,
+\[
+\frac{\|x_{k+1}-x^*\|}{\|x_k-x^*\|^2}
+= \frac{x_k/k}{x_k^2} = \frac{1}{k}4^{2^k} \to \infty,
+\]
+so the sequence is \emph{not} Q-quadratically convergent.
+
+\paragraph{Exercise 7.4} % Nocedal 3.7
+We have
+\[
+x_{k+1} = x_k - \alpha \nabla f(x_k)
+\]
+such that
+\[
+(x_{k+1} - x^*) = (x_k-x^*) - \alpha \nabla f(x_k).
+\]
+From this, we get
+\[
+\|x_{k+1} - x^*\|_A^2
+= (x_{k+1} - x^*)^\tp A (x_{k+1} - x^*)
+= ((x_{k} - x^*) - \alpha\nabla f(x_k))^\tp A ((x_k - x^*) - \alpha \nabla f(x_k))
+= (x_{k} - x^*) A (x_k - x^*) - 2\alpha\nabla f(x_k)^\tp A(x_k-x^*) + \alpha^2\nabla f(x_k)^\tp A \nabla f(x_k)
+= \|x_{k} - x^*\|_A^2 - 2\alpha\nabla f(x_k)^\tp A(x_k-x^*) + \alpha^2\nabla f(x_k)^\tp A \nabla f(x_k).
+\]
+Knowing that $\nabla f(x_k)=Q(x_k - x^*)$ and $\alpha = \nabla
+f(x_k)^\tp\nabla f(x_k)/(\nabla f(x_k)^\tp A\nabla f(x_k))$, it follows that
+\[
+\|x_{k+1} - x^*\|_A^2
+= \|x_k - x^*\|_A^2  - 2\alpha \nabla f(x_k)^\tp \nabla f(x_k) + \alpha^2\nabla f(x_k)^\tp A\nabla f(x_k)
+= \|x_k - x^*\|_A^2
+  - 2\frac{(\nabla f(x_k)^\tp \nabla f(x_k))^2}{\nabla f(x_k)^\tp A \nabla f(x_k)}
+  + \frac{(\nabla f(x_k)^\tp \nabla f(x_k))^2}{\nabla f(x_k)^\tp A \nabla f(x_k)}
+= \|x_k - x^*\|_A^2
+  - \frac{(\nabla f(x_k)^\tp \nabla f(x_k))^2}{\nabla f(x_k)^\tp A \nabla f(x_k)}
+= \|x_k - x^*\|_A^2
+\left(
+1 -
+- \frac{(\nabla f(x_k)^\tp \nabla f(x_k))^2}{(\nabla f(x_k)^\tp A \nabla f(x_k))\|x_k - x^*\|_A^2}
+\right)
+= \|x_k - x^*\|_A^2
+\left(
+1 -
+- \frac{(\nabla f(x_k)^\tp \nabla f(x_k))^2}{(\nabla f(x_k)^\tp A \nabla f(x_k))(\nabla f(x_k)^\tp A^{-1} \nabla f(x_k))}.
+\right)
+\]
+
+\paragraph{Exercise 7.5} % Nocedal 3.6
+If $x_0-x^*$ is parallel to an eigenvector (with eigenvalue $\lambda$) of $A$, then
+\[
+\nabla f(x_0)
+= A x_0 - b
+= A x_0 - A x^* + Ax^* -b
+= A(x_0 - x^*)
+= \lambda (x_0-x^*).
+\]
+From this follows that
+\begin{align*}
+\nabla f(x_0)^\tp \nabla f(x_0)       &= \lambda^2 (x_0-x^*)^\tp (x_0-x^*),
+\nabla f(x_0)^\tp A\nabla f(x_0)      &= \lambda^3 (x_0-x^*)^\tp (x_0-x^*),
+\nabla f(x_0)^\tp A^{-1}\nabla f(x_0) &= \lambda^1 (x_0-x^*)^\tp (x_0-x^*).
+\end{align*}
+Inserting this in equation (\ref{eq:steepest residual}) gives
+\[
+  \|x_k+1 - x^*\|_A^2
+  = \left(1 - \frac{\lambda^4 ((x_0-x^*)\tp(x_0-x^*))^2}{(\lambda^3 (x_0-x^*)^\tp(x_0-x^*)(\lambda (x_0-x^*)^\tp(x_0-x^*)}\right)\|x_{k+1} - x^*\|_A^2
+=0,
+\]
+i.e., $x_1 = x^*$.
+
+
+\paragraph{Exercise 7.6}
+Let $A$ be a positive definite symmetric matrix. Prove the
+\emph{Kantorovich\footnote{Leonid Vitaliyevich Kantorovich (1912--1986),
+    Soviet mathematician and economist, known for his theory and development
+    of techniques for the optimal allocation of resources. Nobel Prize in
+    Economics in 1975.} inequality}, i.e., that for any vector $x$
+\[
+  \frac{(x^\tp x)^2}{(x^\tp A x)(x^\tp A^{-1}x)}
+  \ge \frac{4\lambda_n\lambda_1}{(\lambda_n + \lambda_1)^2},
+\]
+where $\lambda_n$ and $\lambda_1$ are the largest and smallest eigenvalues of
+$A$, respectively.
+
+%\paragraph{Exercise 7.5}  % Nocedal 5.2
+%Show that if the nonzero vectors $p_0, p_1,\dots, p_k$ satisfy (??), where $A$
+%is symmetric and positive-definite, then these vectors are linearly
+%independent. (The results implies that $A$ has at most $n$ conjugate
+%directions.)
+%
+%\paragraph{Exercise 7.6}  % Nocedal 5.4
+%Show that if $f(\cdot)$ is a strictly convex quadratic function, the function
+%$h(\sigma)=f(x_0+\sigma_0 p_0 + \dots \sigma_{k-1}p_{k-1})$ also is a strictly
+%convex quadratic function in $\sigma=(\sigma_0,\dots,\sigma_{k-1})^\tp$.
+%
+%\paragraph{Programming 7} % Nocedal 5.1
+%Implement the Conjugate Gradient algorithm and use it to solve linear systems
+%with \emph{Hilbert matrices} $H$,
+%\[
+%H_{i,j} = \frac{1}{i+j+1}.
+%\]
+%Set the right-hand side to $b=(1,\dots,1)^\tp$ and the initial point to
+%$x_0=(0,\dots,0)^\tp$. Try dimensions $5, 8, 12, 20$, and report the number
+%of iterations required to reduce the residual below $10^{-6}$.
+
+\paragraph{Programming 7}
+We will program the \emph{nonlinear conjugate gradient method}, a general
+descent method like the method of steepest descent. While the descent
+direction for steepest-descent is chosen as $p_k=-\nabla f(x_k)$, the
+conjugate gradient scheme is somewhat more involved (see algorithm~\ref{alg:cg}).
+
+Today's assignment includes:
+\begin{itemize}
+    \item Make sure that you can understand and run \texttt{steepestDescent.m}
+      for the Rosenbrock problem (and possibly others).
+    \item Based on \texttt{steepestDescent.m}, implement nonlinear CG. You
+      will only have to adapt the search direction according to
+      algorithm~\ref{alg:cg}; for step size, you can use the
+      Armijo-backtracking from exercise 5.
+    \item Run nonlinear CG on some test problems (e.g., the Rosenbrock
+      problem). What do you observe?
+\end{itemize}
+
+\begin{algorithm}
+  \begin{algorithmic}[1]
+    \If{$k=1$}
+      \State $p_k = -\nabla f(x_k)$
+    \Else
+      \State $p_k = -\nabla f(x_k) + \beta p_{k-1}$
+  with different strategies for $\beta$:
+  \begin{itemize}
+    \item Fletcher--Reeves:
+      \[
+        \beta_{\text{FR}}=\frac{\nabla f(x_k)^\tp \nabla f(x_k)}{\nabla f(x_{k-1})^\tp \nabla f(x_{k-1})}
+        \]
+       \item Polak--Ribi\`ere:
+         \[
+           \beta_{\text{PR}}=\frac{\nabla f(x_k)^\tp (\nabla f(x_k)-\nabla f(x_{k-1}))}{\nabla f(x_{k-1})^\tp \nabla f(x_{k-1})}
+      \]
+       \item Hestenes--Stiefel:
+         \[
+           \beta_{\text{HS}}=-\frac{\nabla f(x_k)^\tp (\nabla f(x_k)-\nabla f(x_{k-1}))}{p_{k-1}^\tp (\nabla f(x_{k}) - \nabla f(x_{k-1}))}
+      \]
+  \end{itemize}
+    \EndIf
+  \end{algorithmic}
+  \caption{Search direction for the nonlinear conjugate gradient method.}
+  \label{alg:cg}
+\end{algorithm}
+
+
+%Use the steepest descent method to solve linear system of the type
+%(\ref{eq:convex quadratric}). For testing purposes, use
+%\emph{Hilbert\footnote{David Hilbert (1862--1943). German mathematician,
+%    recognized as one of the most influential and universal mathematicians of
+%    the 19th and early 20th centuries.} matrices} $H$,
+%\[
+%H_{i,j} = \frac{1}{i+j+1}
+%\]
+%(Octave command \texttt{hilb(n)}). Set the right-hand side to $b=(1,\dots,1)^\tp$.
+%\begin{enumerate}
+%  \item Use $x_0=(0,\dots,0)^\tp$ as initial point. Try dimensions $5, 8, 12,
+%    20$, and report the number of iterations required to reduce the residual
+%    below $10^{-10}$.
+%  \item Verify the statement from exercise 7.6.
+%\end{enumerate}
+
+
+
+\end{document}
+% =============================================================================
