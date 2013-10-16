@@ -1,31 +1,45 @@
 \input{header.tex}
 % -----------------------------------------------------------------------------
 \title{Exercise sheet 9}
-\subtitle{Numerical Optimization: Newton's method}
-% -----------------------------------------------------------------------------
-\usepackage{amsmath}
-% -----------------------------------------------------------------------------
-\newcommand\tp{\ensuremath{\text{\upshape T}}}
+\subtitle{Numerical Optimization: CG, Newton's method}
 % =============================================================================
 \begin{document}
 \maketitle
 
+\paragraph{Exercise 9.1}  % Nocedal 5.2
+Show that if the nonzero vectors $p_0, p_1,\dots, p_k$ satisfy (??), where $A$
+is symmetric and positive-definite, then these vectors are linearly
+independent. (The results implies that $A$ has at most $n$ conjugate
+directions.)
+
+\paragraph{Exercise 9.2}  % Nocedal 5.4
+Show that if $f(\cdot)$ is a strictly convex quadratic function, the function
+$h(\sigma)=f(x_0+\sigma_0 p_0 + \dots \sigma_{k-1}p_{k-1})$ also is a strictly
+convex quadratic function in $\sigma=(\sigma_0,\dots,\sigma_{k-1})^\tp$.
+
+\paragraph{Exercise 9.3}
+Newton's method is applied to the function $f(x)=x^m$ with \emph{even}
+$m\in\N$. What can you say about the rate of convergence?
+
+\paragraph{Exercise 9.4}
+Let $x \in \R^n$ and $f$ be twice continuously differentiable. Show that $p =
+-H\nabla f(x)$ is a descent direction of $f$ at $x$ for any positive definite
+matrix $H$ if $\nabla f(x) \neq 0$.
+
+
 % Hintermüller, (P3)
 % <http://www.uni-graz.at/imawww/hintermueller/opt_I_10.pdf>
-\paragraph{Programming 3}
-Use the program from Exercise sheet 1. Use the Newton direction as the search
-direction if
-\[
-c_1 \|\nabla f(x_k)\|^2
-\le \nabla f(x_k)(\nabla^2 f(x_k))^{-1} \nabla f(x_k)
-\le c_2 \|\nabla f(x_k)\|^2,
-\]
-and otherwise the direction of steepest descent. Experiment with $0<c_1<c_2$.
-Document the results for the Rosenbrock function $f_1(\cdot)$ and for
-\[
-f_2(x) = \frac{1}{2}x_1^2 + x_1\cos(x_2)
-\]
-and compare them with the method of steepest descent.
+\paragraph{Programming 9}
+Based on \texttt{steepestDescent.m}, implement Newton's method.
+
+Compare
+\begin{itemize}
+  \item the method of steepest descent,
+  \item the conjugate-gradient method, and
+  \item Newton's method
+\end{itemize}
+for some test problems (e.g., the Rosenbrock function). Plot the residual
+norms $\|\nabla f(x_k)\|$ as well as the iterates $x_k$. What do you observe?
 
 \end{document}
 % =============================================================================
