@@ -8,7 +8,7 @@ LATEX_OPTIONS:=-shell-escape
 
 # ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 
-default: ex7
+default: ex9
 
 ex5:
 	@$(LATEX) $(LATEX_OPTIONS) ex5
