@@ -26,9 +26,20 @@ Let $x \in \R^n$ and $f$ be twice continuously differentiable. Show that $p =
 -H\nabla f(x)$ is a descent direction of $f$ at $x$ for any positive definite
 matrix $H$ if $\nabla f(x) \neq 0$.
 
+\paragraph{Exercise 9.5}
+% http://www.uni-graz.at/imawww/hintermueller/opt_I_10.pdf
+Consider the minimization problem
+\[
+  f(x)\dfn \frac{1}{2}\sum_{i=1}^M\|r_i\|^2 = \frac{1}{2}R(x)^\tp R(x) \to \min_{x\in\R^n}
+\]
+with $R(x)=(r_1,\dots,r_M)^\tp(x)$, where the functions $r_i:\R^n\to\R$, $i\in\{1,\dots,M\}$, are twice continuously differentiable. For a given $x_a$, define the following model for $f$ around $x_a$:
+\[
+  m_a(x) = f(x_a)
+         + R(x_a)^\tp R'(x_a)(x-x_a)
+         + \frac{1}{2} (x-x_a)^\tp R'(x_a)^\tp R'(x_a)(x-x_a).
+\]
+Based on $m_a$, define -- under appropriate conditions --, the analogue of Newton's method. How is $m_a$ different from the ordinary second-order approximation of $f$ in the defintion of Newton's method? Consider the cases $M=n$, $M>n$, $M<n$. Which speed of convergence can be expected if $f(x^*)\neq 0$?
 
-% Hintermüller, (P3)
-% <http://www.uni-graz.at/imawww/hintermueller/opt_I_10.pdf>
 \paragraph{Programming 9}
 Based on \texttt{steepestDescent.m}, implement Newton's method.
 
