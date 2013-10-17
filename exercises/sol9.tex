@@ -7,18 +7,67 @@
 \maketitle
 
 \paragraph{Exercise 9.1}  % Nocedal 5.2
-Show that if the nonzero vectors $p_0, p_1,\dots, p_k$ satisfy
+Suppose that $p_0,\dots,p_l$ are conjugate. Let us express one of them, say
+$p_i$, as a linear combination of the others,
+\begin{equation}\label{eq:lin}
+p_i = \sigma_0 p_0 + \dots + \sigma_k p_l
+\end{equation}
+for some coefficients $\sigma_k, k\in\{0, 1, \dots, l\}$. Note that the sum does not include $p_i$. Then from conjugacy, we have
 \[
-  p_i^\tp A p_j = 0 \quad\forall i\neq j,
+0
+= p_0^\tp A p_i
+= \sigma_0 p_0^\tp A p_0 + \dots + \sigma_l p_0^\tp A p_l
+= \sigma_0 p_0^\tp A p_0.
 \]
-where $A$ is symmetric and positive-definite, then these vectors are linearly
-independent. (The result implies that $A$ has at most $n$ conjugate
-directions.)
+This implies that $\sigma_0 = 0$ since the vectors $p_0, \dots, p_l$ are
+assumed to be conjugate and $A$ is positive definite. The same argument is
+used to show that all the scalar coefficients $\sigma_k, k\in\{0,\dots,l\}$ in
+(\ref{eq:lin}) are zero. Equation (\ref{eq:lin}) indicates that $p_i = 0$,
+which contradicts the fact that $p_i$ is a nonzero vector. The contradiction
+then shows that vectors $p_0,\dots, p_l$ are linearly independent.
+
+
 
 \paragraph{Exercise 9.2}  % Nocedal 5.4
-Show that if $f(\cdot)$ is a strictly convex quadratic function, the function
-$h(\sigma)=f(x_0+\sigma_0 p_0 + \dots \sigma_{k-1}p_{k-1})$ also is a strictly
-convex quadratic function in $\sigma=(\sigma_0,\dots,\sigma_{k-1})^\tp$.
+To see that $h(\sigma) = f (x_0 + \sigma_0 p_0 +\dots+ \sigma_{k−1} p_{k−1})$ is quadratic, note that
+\[
+\sigma_0 p_0 + \dots + \sigma_{k−1} p_{k−1} = P\sigma
+\]
+where $P$ is the $n \times k$-matrix whose columns are the $n\times 1$-vectors $p_i$ , i.e.,
+\[
+P =
+\begin{pmatrix}
+\vline & & \vline\\
+p_0 & \dots & p_{k-1}\\
+\vline & & \vline
+\end{pmatrix}
+\]
+and $\sigma$ is the $k \times 1$-matrix
+\[
+\sigma = (\sigma_0,\dots,\sigma_{k-1})^\tp.
+\]
+Therefore
+\[
+\begin{split}
+h(\sigma)
+&= \frac{1}{2}(x_0 + P\sigma)^\tp A (x_0+P\sigma) + b^\tp (x_0 + P\sigma)\\
+&= \frac{1}{2} x_0^\tp A x_0 + x_0^\tp A P \sigma + \frac{1}{2}\sigma^\tp P^\tp AP\sigma + b^\tp x_0 + b^\tp P\sigma\\
+&= \frac{1}{2} x_0^\tp A x_0 + b^\tp x_0 + [P^\tp A^\tp x_0 + P^\tp b]^\tp\sigma + \frac{1}{2}\sigma^\tp (P^\tp A P)\sigma\\
+&= C + \hat{b}^\tp \sigma + \sigma^\tp \hat{A}\sigma,
+\end{split}
+\]
+where
+\[
+C \dfn\frac{1}{2} x_0^\tp A x_0 + b^\tp x_0,
+\quad
+\hat{b}\dfn P^\tp A^\tp x_0 + P^\tp b,
+\quad
+\hat{A} \dfn P^\tp A P.
+\]
+If the set of vectors $\{p_0,\dots, p_{k-1}\}$ is linearly independent, then
+$P$ has full rank and $\hat{A}$ is positive definite. Hence $h(\cdot)$ is
+strictly convex quadratic.
+
 
 \paragraph{Exercise 9.3}
 Newton's method is applied to the function $f(x)=x^m$ with \emph{even}
