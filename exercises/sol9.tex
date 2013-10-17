@@ -73,10 +73,31 @@ strictly convex quadratic.
 Newton's method is applied to the function $f(x)=x^m$ with \emph{even}
 $m\in\N$. What can you say about the rate of convergence?
 
+We have
+\[
+f(x) = x^m, \quad f'(x)=mx^{m-1}, \quad f''(x)=m(m-1) x^{m-2}
+\]
+for $m>1$.
+Given a starting point $x_0\in\R$, the Newton sequence is defined by
+\[
+x_{k+1}
+= x_k - \frac{m x_k^{m-1}}{m(m-1)x_k^{m-2}}
+= \left(1 - \frac{1}{m-1}\right) x_k
+= \frac{m-2}{m-1} x_k.
+\]
+Hence, if $m=2$, Newton's iteration will find the solution in one step. For $m>2$, we have
+\[
+\frac{\|x_{k+1}-x^*\|}{\|x_k - x^*\|}
+= \frac{m-2}{m-1}
+< 1,
+\]
+so the sequence converges Q-linearly.
+
 \paragraph{Exercise 9.4}
 Let $x \in \R^n$ and $f$ be twice continuously differentiable. Show that $p =
--H\nabla f(x)$ is a descent direction of $f$ at $x$ for any positive definite
-matrix $H$ if $\nabla f(x) \neq 0$.
+-H^{-1}\nabla f(x)$ is a descent direction of $f$ at $x$ for any positive
+definite matrix $H$ if $\nabla f(x) \neq 0$.
+
 
 \paragraph{Exercise 9.5}
 % http://www.uni-graz.at/imawww/hintermueller/opt_I_10.pdf

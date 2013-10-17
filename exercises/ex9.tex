@@ -26,8 +26,8 @@ $m\in\N$. What can you say about the rate of convergence?
 
 \paragraph{Exercise 9.4}
 Let $x \in \R^n$ and $f$ be twice continuously differentiable. Show that $p =
--H\nabla f(x)$ is a descent direction of $f$ at $x$ for any positive definite
-matrix $H$ if $\nabla f(x) \neq 0$.
+-H^{-1}\nabla f(x)$ is a descent direction of $f$ at $x$ for any
+positive-definite matrix $H$ if $\nabla f(x) \neq 0$.
 
 \paragraph{Exercise 9.5}
 % http://www.uni-graz.at/imawww/hintermueller/opt_I_10.pdf
@@ -44,8 +44,7 @@ with $R(x)=(r_1,\dots,r_M)^\tp(x)$, where the functions $r_i:\R^n\to\R$, $i\in\{
 Based on $m_a$, define -- under appropriate conditions --, the analogue of
 Newton's method. How is $m_a$ different from the ordinary second-order
 approximation of $f$ in the defintion of Newton's method? Consider the cases
-$M=n$, $M>n$, $M<n$. Which speed of convergence can be expected if $\nabla
-f(x^*)\neq 0$?
+$M=n$, $M>n$, $M<n$. Which speed of convergence can be expected if $f(x^*)\neq 0$?
 
 \paragraph{Programming 9}
 Based on \texttt{steepestDescent.m}, implement Newton's method.
