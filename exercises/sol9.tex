@@ -94,9 +94,14 @@ Hence, if $m=2$, Newton's iteration will find the solution in one step. For $m>2
 so the sequence converges Q-linearly.
 
 \paragraph{Exercise 9.4}
-Let $x \in \R^n$ and $f$ be twice continuously differentiable. Show that $p =
--H^{-1}\nabla f(x)$ is a descent direction of $f$ at $x$ for any positive
-definite matrix $H$ if $\nabla f(x) \neq 0$.
+It is sufficient to show that $\nabla f(x)^\tp d < 0$, i.e.,
+\[
+0
+> \nabla f(x)^\tp d
+= - \nabla f(x)^\tp H^{-1} \nabla f(x)^\tp
+= - (H^{-T} \nabla f(x))^\tp H (H^{-1} \nabla f(x)).
+\]
+Since $H$ is symmetric and positive-definite, and $\nabla f(x)\neq 0$, this is obviously true.
 
 
 \paragraph{Exercise 9.5}
