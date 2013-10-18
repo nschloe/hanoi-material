@@ -8,10 +8,10 @@ LATEX_OPTIONS:=-shell-escape
 
 # ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ### ###
 
-default: ex9
+default: exam
 
-ex5:
-	@$(LATEX) $(LATEX_OPTIONS) ex5
+exam:
+	@$(LATEX) $(LATEX_OPTIONS) exam
 
 ex7:
 	@$(LATEX) $(LATEX_OPTIONS) ex7
@@ -48,6 +48,19 @@ clean:
 	       sol*-figure*.dpth \
 	       sol*.snm \
 	       sol*.nav
+	@rm -f exam*-blx.bib \
+	       exam*.aux \
+	       exam*.out \
+	       exam*.auxlock \
+	       exam*.bbl \
+	       exam*.blg \
+	       exam*.log \
+	       exam*.pdf \
+	       exam*-figure*.pdf \
+	       exam*-figure*.log \
+	       exam*-figure*.dpth \
+	       exam*.snm \
+	       exam*.nav
 	@rm -f missfont.log \
 	       x.log
 	@rm -f *~
