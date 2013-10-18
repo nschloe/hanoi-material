@@ -1,0 +1,217 @@
+% -----------------------------------------------------------------------------
+\input{header}
+
+\usepackage{algpseudocode}
+
+\title{Final Examination}
+
+\newtheorem{algorithm}{Algorithm}
+% -----------------------------------------------------------------------------
+\begin{document}
+
+\maketitle
+
+\section*{Solving linear equations}
+
+\paragraph{Problem 1}
+Consider the linear system of equations
+\begin{equation*}
+ \begin{bmatrix}
+  10^{-20} & 1\\
+  2 & 3
+ \end{bmatrix}
+ \begin{bmatrix}
+  x_1\\x_2
+ \end{bmatrix}
+=\begin{bmatrix}
+  \frac{1}{2}\\0
+ \end{bmatrix}.
+\end{equation*}
+\begin{enumerate}
+ \item Compute the growth factor $g(A)$ of the LU factorization without
+   pivoting.
+ \item Compute the condition number $\kappa_1(A)$ with respect to the
+   1-norm.
+
+ Hint: $\begin{bmatrix}
+         a&b\\
+         c&d
+        \end{bmatrix}^{-1}=\frac{1}{ad-bc}\begin{bmatrix}
+        d&-b\\
+        -c&a
+         \end{bmatrix} $, $\quad \|A\|_1=\max\limits_{j=1,\dots,n}\sum\limits_{i=1}^m|a_{ij}|$.
+       \item Can we trust the result from the LU factorization without
+         pivoting if we assume that $\varepsilon_{\text{mach}}=10^{-16}$?
+         Explain why.
+\end{enumerate}
+
+\paragraph{Problem 2}
+Find a system of equations $Ax=b$ with $A\in\R^{n\times n}$ nonsingular,
+symmetric, and \emph{indefinite}, $b\in\R^n$, and $x_0\in\R^n$ such that the
+conjugate gradient method breaks down.
+
+Hint: Find $y\in\R^n$ and $A\in\R^{n\times n}$ such that $y^\tp Ay=0$.
+
+\begin{algorithm}{Conjugate Gradient Iteration (CG)}\label{A:CG}\rm
+\begin{algorithmic}[1]
+\State
+    $r_0 = b-Ax_0$,\,\, $p_1=r_0$
+\For{$k=1,2,3,\ldots$ }
+\State
+    $\alpha_k = (r_{k-1}^\tp r_{k-1})/(p^\tp_{k}Ap_{k})$
+\State
+    $x_k=x_{k-1} + \alpha_kp_{k}$
+\State
+    $r_k=r_{k-1} - \alpha_kAp_{k}$
+\State
+    $\beta_k= (r_{k}^\tp r_{k})/(r_{k-1}^\tp r_{k-1})$
+\State
+    $p_{k+1}= r_{k}+\beta_kp_{k}$
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+% -----------------------------------------------------------------------------
+\paragraph{Problem 3}
+Write (on paper) a MATLAB/Octave function
+\begin{center}
+  \verb!function [i,j] = maxelementposition(A)!
+\end{center}
+that returns the position ($i$ is the row index and $j$ the column index) of
+the element with largest value in magnitude of $A\in\R^{n\times n}$ .
+% -----------------------------------------------------------------------------
+\section*{Nonlinear optimization}
+% -----------------------------------------------------------------------------
+\paragraph{Problem 4 (Definitions)}
+Let $f:\R^n\to\R$ and $x\in\R^n$.
+\begin{enumerate}
+  \item When is $d\in\R^n$ called a \emph{descent direction} of $f$ at $x$? For
+    $f$ continuously differentiable at $x$, give a sufficient condition for
+    $d$ to be a descent direction of $f$ at $x$.
+
+  \item For $f$ continuously differentiable, write down the \emph{Armijo
+    rule}, used for determining the step size of a general descent method.
+\end{enumerate}
+% -----------------------------------------------------------------------------
+\paragraph{Problem 5 (Conjugate gradient method)}
+Let
+\[
+    f: \R^n \to \R,\quad f(x) = \frac{1}{2} x^\tp A x - b^\tp x,
+\]
+with $A\in\R^{n\times n}$, symmetric and positive definite, $b\in\R^n$.
+
+\begin{enumerate}
+  \item Give all minimizers of $f$ and explain your answer.
+  \item Given a noncritical point $x_k$ and a direction $d_k$, let
+    \[
+      x_{k+1} \dfn x_k + \alpha_k d_k.
+    \]
+    Find the $\alpha_k\ge 0$ which minimizes $f(x_{k}+\alpha d_k)$.
+  \item Let $g_k\dfn \nabla f(x_k)$ and
+    \[
+      \begin{split}
+        d_0 &= -g_0,\\
+        d_{k+1} &= -g_{k+1} + \sum_{i=0}^k \beta_i^{k} d_i.
+      \end{split}
+    \]
+    Determine $\beta_i^k$ such that
+    \[
+      d_{k+1}^\tp A d_j = 0 \quad\forall j\in\{0,\dots,k\}.
+    \]
+    What is the name of this property?
+\end{enumerate}
+% -----------------------------------------------------------------------------
+\paragraph{Problem 6 (Newton's method)}
+
+Let
+\[
+  f: \R \to \R,\quad f(x) \dfn 1 - \exp(-x^2).
+\]
+
+\begin{enumerate}
+
+\item Show that $f$ has only one critical point $x^*$ and that it is a global
+  minimizer.
+
+\item For which $x$ is $\nabla^2 f(x)$ positive definite?
+
+\item Let $x_0\neq x^*$. Show that the sequence of Newton iterates
+  $\{x_k\}$ converges to $x^*$. Compute the quotient-convergence factor
+  $Q_p(x_k)$ with $p\in[1,\infty)$.  What is the Q-convergence order of
+    $\{x_k\}$?
+
+  \item Let
+    \[
+       g: \R^2 \to \R,\quad g(x_1, x_2) \dfn x_1^4 + x_2^2.
+    \]
+    Do tasks (a), (b), (c) for $g$.
+ How do you explain the difference in the Q-convergence order between $f$ and $g$?
+\end{enumerate}
+% -----------------------------------------------------------------------------
+\section*{Numerical methods for PDEs}
+% -----------------------------------------------------------------------------
+\paragraph{Problem 7}
+There is given the problem
+\begin{align*}
+  -u''  + u = \ln (1-x+\epsilon),\; x\in ]0,1[, \; 0 < \epsilon \ll 1,\\
+   u(0) = 1,\quad u(1) = -1.
+\end{align*}
+Discretize this problem using
+\[   \Omega_h = \{ x_k\;|\; x_k = \sum_{j=1}^k h_j,\; k=0,\dots, n+1\} \,,\;
+     \Gamma_h = \{ 0\} \cup \{ 1\}   \]
+with $h_k > 0$ and $\sum_{j=1}^{n+1} h_j = 1$,
+by a consistent (this is also to show) finite difference approximation.
+
+Show that the resulting tridiagonal matrix $A = (a_{ij})_{i,j=1}^n$ is
+%is strict diagonal dominant, i.e.
+%\[   \sum_{j=1, j\ne i}^n  |a_{ij}| < |a_{ii}|\;,\quad   \mbox{for all}\; i=1,\dots,n\;,\]
+%and further
+symmetric and positive definite (i.e., $x^\tp A x > 0$ for all $x\in \R^n,\, x\ne \boldsymbol{0}$).
+% -----------------------------------------------------------------------------
+\paragraph{Problem 8}
+For $x\in \Omega_h \subset \R$ there are available the
+neighboring points
+\[
+  x-h,\; x+h,\; x+2h \subset \Omega_h.
+\]
+Construct a finite difference approximation $D_h u(x)$ of the derivative
+$\frac{\partial u}{\partial x}(x)$
+of third order, i.e.,
+\[
+(D_h u)(x) - \frac{\partial u}{\partial x}(x) = O (h^3),
+\]
+where we suppose $u \in C^\infty$.
+% -----------------------------------------------------------------------------
+\paragraph{Problem 9*}
+For the unit square $\Omega = ]0,1[\times ]0,1[$ there is given
+a very regular equidistant discretization into
+squared Voronoi boxes
+\[
+\Omega_{ij} = ]i\,h,(i+1)h[\times ]j\, h,(j+1)h[,\; i,j=0,\dots,n,\; h=1/(n+1),\; n\in \N,\; n>1.
+\]
+There is given a continuous differentiable vector field
+\[
+  \vec{q}(x,y) = \binom{p(x,y)}{q(x,y)} : \R^2 \rightarrow \R^2.
+\]
+The discretized local balance on $\bar\Omega_{ij}$ should be
+\begin{align*}
+  b_{ij} & = p((i+1)h,(j+\tfrac{1}{2})h)\,h - p(i\,h,(j+\tfrac{1}{2})h)h\\
+         & + q((i+\tfrac{1}{2})h,(j+1)h)h - q((i+\tfrac{1}{2})h,j\,h)h,\; i,j=0,\dots,n.
+\end{align*}
+Show that the sum of the local balances
+\[
+\sum_{i,j=0}^n b_{i,j}
+\]
+equals the global balance
+\begin{equation}\label{gb}
+   \int_{\partial \Omega} \vec{q} \cdot \vec{n}  \, \dd\partial\Omega,
+\end{equation}
+where $\vec{n}$ is the outward unit normal vector and where we compute the
+integral \eqref{gb} by a midpoint quadrature rule, i.e.,
+\[
+\int_\Gamma f(x,y) \, \dd\Gamma  \approx f(x_g,y_g) \int_\Gamma \,\dd\Gamma.
+\]
+($(x_g,y_g)$ is the center of gravity of the surface $\Gamma$.)
+% -----------------------------------------------------------------------------
+
+
+\end{document}
