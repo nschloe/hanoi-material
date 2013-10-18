@@ -72,7 +72,7 @@ so the only critical point is $x^*=0$.
 Moreover, it clearly is $f(x)\ge 0$, and $f(0) = 0$, so it must be a global
 minimizer.
 
-\item For which $x$ is $\nabla^2 f(x)$ positive definite?
+\item
 \[
 \nabla^2 f(x) = 2\exp(-x^2) - 4x^2\exp(-x^2) = (2-4x^2)\exp(-x^2),
 \]
@@ -129,17 +129,89 @@ Q_p(\{x_k\})
 = \limsup_{k\to\infty} \frac{1}{-1+1/(2x_k^2)} |x_k|^{1-p}
 = \limsup_{k\to\infty} \frac{2}{1-2x_k^2} |x_k|^{3-p},
 \end{multline*}
-so $Q_p(\{x_k\})=0$ for any $p\in[1,3)$, $Q_3(\{x_k\}) = 2$, and otherwise nonexistent.
+so
+\[
+Q_p(\{x_k\}) =
+\begin{cases}
+0 \quad&\text{for } 1\le p < 3\\
+2 \quad&\text{for }  p = 3\\
++\infty \quad&\text{otherwise.}
+\end{cases}
+\]
+Hence, the Q-order of convergence is 3.
 \end{itemize}
 
+  \item
+\begin{itemize}
+\item Clearly $g(x_1, x_2)\ge 0$, and $g(x^*)=0$, where $x^*=(0,0)^\tp$ is the only global minimizer.
+\[
+\nabla f(x) = ( 4x_1^3, 2x_2)^\tp.
+\]
 
+\item
+\[
+\nabla^2 f(x) =
+\begin{pmatrix}
+12 x_1^2 & 0
+0 & 2
+\end{pmatrix},
+\]
+which is positive definite for all $(x_1, x_2)$ except $x^*$.
 
-  \item Let
-    \[
-       g: \R^2 \to \R,\quad g(x_1, x_2) \dfn x_1^4 + x_2^2.
-    \]
-    Do tasks (a), (b), (c) for $g$.
- How do you explain the difference in the Q-convergence order between $f$ and $g$?
+\item
+\begin{multline*}
+x_{k+1}
+= x_k - [\nabla^2 f(x_k)]^{-1} \nabla f(x_k)
+= x_k -
+\begin{pmatrix}
+1/(12 x_1^2) & 0\\
+0 & 1/2
+\end{pmatrix}
+\begin{pmatrix}
+4 x_1^3\\
+2 x_2
+\end{pmatrix}\\
+= x_k -
+\begin{pmatrix}
+1/3 x_1\\
+x_2
+\end{pmatrix}
+=
+\begin{pmatrix}
+2/3 x_1\\
+0
+\end{pmatrix}
+\end{multline*}
+
+Consequently
+\[
+Q_p(\{x_k\})
+= \limsup_{k\to\infty} \frac{\|x_{k+1}-x^*\|}{\|x_k-x^*\|^p}
+= \limsup_{k\to\infty} \frac{|2/3 x_1|}{(x_1^2+x_2^2)^{p/2}}
+\]
+Since $x_2=0$ after one Newton step (see above), we can assume $x_2=0$ here.
+Hence
+\[
+Q_p(\{x_k\})
+= \limsup_{k\to\infty} \frac{|2/3 x_1|}{(|x_1|^p}
+= \limsup_{k\to\infty} \frac{2}{3} |x_1|^{1-p},
+\]
+so
+\[
+Q_p(\{x_k\})
+=
+\begin{cases}
+\tfrac{2}{3} \quad&\text{for } p=1,\\
++\infty \quad&\text{otherwise.}
+\end{cases}
+\]
+That means that the order of convergence is 1.
+
+The convergence order is not quadratic (as predicted by the convergence
+analysis for Newton's method) since the Hessian is not positive definite in
+$x^*$.
+
+\end{itemize}
 \end{enumerate}
 % -----------------------------------------------------------------------------
 \section*{Numerical methods for PDEs}
