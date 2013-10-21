@@ -12,7 +12,7 @@ Compute  the gradient $\nabla f(x)$ and Hessian $\nabla^2f(x)$ of the
 \begin{equation}\label{eq:rosenbrock}
   f(x) = 100(x_2-x_1^2)^2 + (1-x_1)^2.
 \end{equation}
-Show that $x^*=(1,1)^\tp$ is the only local minimizer of this function, and
+Show that $x^*=(1,1)^{\tp}$ is the only local minimizer of this function, and
 that the Hessian matrix at that point is positive-definite.
 
 \paragraph{Exercise 5.2} % Nocedal 2.2
@@ -25,7 +25,7 @@ but a saddle point.
 
 \paragraph{Exercise 5.3} % Nocedal 2.3
 Let $a$ be a given $n$-vector, and $A$ be a given $n\times n$ symmetric matrix. Compute the
-gradient and Hessian of $f_1(x) = a^\tp x$ and $f_2 (x) =x^\tp Ax$.
+gradient and Hessian of $f_1(x) = a^{\tp} x$ and $f_2 (x) =x^{\tp} Ax$.
 
 
 \paragraph{Exercise 5.4} % Nocedal 2.7
@@ -37,7 +37,7 @@ Consider the function
 \[
   f(x_1, x_2) = (x_1+x_2^2)^2.
 \]
-At the point $x=(1,0)^\tp$ we consider the search direction $p=(-1,1)^\tp$.
+At the point $x=(1,0)^{\tp}$ we consider the search direction $p=(-1,1)^{\tp}$.
 Show that $p$ is a descent direction. What is the ideal step size?
 
 \paragraph{Exercise 5.6} % Nocedal 2.9
@@ -45,8 +45,8 @@ Suppose that $\tilde{f}(z) = f(x)$ where $x=Sz + s$ for some $S\in\R^{n\times
 n}$, $s\in\R^n$. Show that
 \[
   \begin{split}
-  \nabla\tilde{f}(z) = S^\tp \nabla f(x),\\
-  \nabla^2\tilde{f}(z) = S^\tp \nabla^2 f(x) S.
+  \nabla\tilde{f}(z) = S^{\tp} \nabla f(x),\\
+  \nabla^2\tilde{f}(z) = S^{\tp} \nabla^2 f(x) S.
 \end{split}
 \]
 (Hint: Use the chain rule to express $\dd \tilde{f}/\dd z_j$ in terms of $\dd f/\dd x_i$ and $\dd x_i/\dd z_j$ for all $i, j\in\{1,\dots,n\}$.)
@@ -74,7 +74,7 @@ still missing a sensible step-size control.
     \texttt{alpha0=1.0} and decrease factor \texttt{sigma=0.4}.
 \end{itemize}
 Then apply the steepest descent method to the all functions from above.  First
-try the initial point $x_0=(1.2, 1.2)^\tp$, and then $x_0=(-1.2, 1)^\tp$.
+try the initial point $x_0=(1.2, 1.2)^{\tp}$, and then $x_0=(-1.2, 1)^{\tp}$.
 \begin{itemize}
   \item Visualize the steps with \texttt{contourf()} for the function $f$ and
     \texttt{plot(..., 'r-x')} for the iterates. Also plot the subsequent
